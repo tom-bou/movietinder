@@ -3,7 +3,7 @@ import MoviePosterView from '../views/moviePosterView';
 
 const ReactRoot = observer(({ model }) => {
     return (
-      <div className="">
+      <div>
         <MoviePosterView />
       </div>
     );
