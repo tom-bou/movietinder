@@ -1,7 +1,6 @@
-// src/index.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Root from './presenter/root.jsx';
+import ReactRoot from './presenter/root.jsx';
+import { createRoot } from 'react-dom/client';
 
-
-ReactDOM.render(<Root />, document.getElementById('root'));
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<ReactRoot/>);
