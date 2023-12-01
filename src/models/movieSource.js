@@ -52,11 +52,11 @@ function getMovieVideo(movieId) {
 let promiseState = {};
 let promiseState2 = {};
 
-resolvePromise(getMovieDetails(341), promiseState);
-console.log("promiseState", promiseState);
+// resolvePromise(getMovieDetails(341), promiseState);
+// console.log("promiseState", promiseState);
 
-resolvePromise(getMovieVideo(341), promiseState2);
-console.log("promiseState", promiseState2);
+// resolvePromise(getMovieVideo(341), promiseState2);
+// console.log("promiseState", promiseState2);
 
 
 
