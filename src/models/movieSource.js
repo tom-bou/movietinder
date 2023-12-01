@@ -1,7 +1,7 @@
 import { BASE_URL, API_KEY, ACCESS_TOKEN } from "./TMDBApiConfig.js";
 import { resolvePromise } from "./resolvePromise.js";
 
-export function getMovieDetails(movieId) {
+function getMovieDetails(movieId) {
   function myFetchACB(response) {
     if (!response.ok) throw new Error("fetch failed");
     return response.json();
@@ -49,8 +49,20 @@ function getMovieVideo(movieId) {
         .catch(onErrorACB);
 }
 
-let promiseState = {};
-let promiseState2 = {};
+function randomMovie() {
+  let promiseStateDetails = {};
+  let promiseStateVideo = {};
+  let movieId = Math.floor(Math.random() * 10000);
+
+  resolvePromise(getMovieDetails(movieId), promiseStateDetails);
+  resolvePromise(getMovieVideo(movieId), promiseStateVideo);
+
+  
+  console.log(promiseStateDetails, promiseStateVideo);
+
+}
+
+// randomMovie();
 
 // resolvePromise(getMovieDetails(341), promiseState);
 // console.log("promiseState", promiseState);
@@ -61,4 +73,4 @@ let promiseState2 = {};
 
 
 
-export default { getMovieDetails };
+export default { randomMovie };
