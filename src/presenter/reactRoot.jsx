@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import MoviePosterView from '../views/moviePosterView';
+import MoviePageView from '../views/moviePageView';
 
 const ReactRoot = observer(({ model }) => {
     return (
       <div>
-        <MoviePosterView />
+        <MoviePageView />
       </div>
     );
     }
