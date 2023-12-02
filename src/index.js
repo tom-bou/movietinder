@@ -1,4 +1,4 @@
-import ReactRoot from './presenter/root.jsx';
+import ReactRoot from './presenter/reactRoot.jsx';
 import { createRoot } from 'react-dom/client';
 import Firebase from './models/firebaseModel.js';
 
