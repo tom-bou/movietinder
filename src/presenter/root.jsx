@@ -7,7 +7,6 @@ import LoginPresenter from './loginPresenter';
 import RegisterPresenter from './registerPresenter';
 import MoviePosterView from '../views/moviePageView';
 
-
 const ReactRoot = observer((props) => {
   return (
     <Router>
