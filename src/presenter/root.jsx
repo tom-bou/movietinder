@@ -15,7 +15,6 @@ const ReactRoot = observer((props) => {
         <Routes>
           <Route path="/login" element={<LoginPresenter firebaseModel={props.firebaseModel} />} />
           <Route path="/register" element={<RegisterPresenter firebaseModel={props.firebaseModel} />} />
-          <Route path="/movie" element={<Movie model={props.model}/>}/>
         </Routes>
 
       </div>
