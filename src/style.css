@@ -11,3 +11,8 @@ npx tailwindcss -i ./src/input.css -o ./src/style.css --watch
     border-color: red;
     border-style: dotted;
 }
+
+.newMovieButton {
+    color: red;
+    padding: 10px;
+}

@@ -19,7 +19,7 @@ export default {
     }
 
     function tryGetMovieDetails() {
-      let searchParams = getRandomInt(1000);
+      let searchParams = getRandomInt(869835);
       let movieDetailsPromise = getMovieDetails(searchParams);
 
       resolvePromise(movieDetailsPromise, self.currentMoviePromiseState);
@@ -28,6 +28,9 @@ export default {
         console.error("Failed to get movie details, retrying...", error);
         tryGetMovieDetails(); // Recursive call for retry
       });
+
+      // check if the movie has a trailer and poster image if not try again
+      
     }
 
     tryGetMovieDetails();
