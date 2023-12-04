@@ -1,13 +1,26 @@
+import React from 'react';
 import { observer } from 'mobx-react-lite';
-import Movie from './moviePresenterTest.jsx';
 
-const ReactRoot = observer(({ model }) => {
-    return (
-      <div className="">
-        <Movie model={model} />
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import LoginPresenter from './loginPresenter';
+import RegisterPresenter from './registerPresenter';
+import MoviePosterView from '../views/moviePageView';
+
+
+const ReactRoot = observer((props) => {
+  return (
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/login" element={<LoginPresenter firebaseModel={props.firebaseModel} />} />
+          <Route path="/register" element={<RegisterPresenter firebaseModel={props.firebaseModel} />} />
+          <Route path="/movie" element={<Movie model={props.model}/>}/>
+        </Routes>
+
       </div>
-    );
-    }
+    </Router>
   );
-  
-  export default ReactRoot;
+});
+
+export default ReactRoot;
