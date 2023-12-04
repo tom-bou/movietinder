@@ -1,19 +1,8 @@
-// src/index.js
-import React from "react";
-import ReactDOM from "react-dom";
-import Root from "./presenter/root.jsx";
-import "./models/movieSource.js";
-import Movie from "./presenter/moviePresenterTest.jsx";
-import model from "./models/movieModel.js";
+import ReactRoot from './presenter/reactRoot.jsx';
+import { createRoot } from 'react-dom/client';
+import Firebase from './models/firebaseModel.js';
 
-import { observable, configure, reaction } from "mobx";
-import { createRoot } from "react-dom/client";
-
-configure({ enforceActions: "never" }); // we don't use Mobx actions
-const reactiveModel = observable(model);
-
-reactiveModel.doRandomMovieSearch(Math.floor(Math.random() * Math.floor(1000)));
-
-createRoot(document.getElementById("root")).render(
-  <Root model={reactiveModel} />
-);
+const container = document.getElementById('root');
+const FirebaseModel = new Firebase();
+const root = createRoot(container);
+root.render(<ReactRoot firebaseModel={FirebaseModel}/>);
