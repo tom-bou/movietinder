@@ -1,0 +1,13 @@
+/*
+Use this file as input to generate Tailwind CSS file using the following command...
+npx tailwindcss -i ./src/input.css -o ./src/style.css --watch
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.debug {
+    border-width: 2px;
+    border-color: red;
+    border-style: dotted;
+}

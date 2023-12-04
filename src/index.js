@@ -1,8 +1,7 @@
-import ReactRoot from './presenter/reactRoot.jsx';
-import { createRoot } from 'react-dom/client';
-import Firebase from './models/firebaseModel.js';
+// src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Root from './presenter/root.jsx';
 
-const container = document.getElementById('root');
-const FirebaseModel = new Firebase();
-const root = createRoot(container);
-root.render(<ReactRoot firebaseModel={FirebaseModel}/>);
+
+ReactDOM.render(<Root />, document.getElementById('root'));
