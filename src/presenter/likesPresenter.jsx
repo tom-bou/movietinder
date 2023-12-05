@@ -17,7 +17,6 @@ observer(
 
 
 /*
-
 function addMovieToLiked(movie) {
   addLikedMovie(movie);
   updateView();
