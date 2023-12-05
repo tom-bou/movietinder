@@ -7,3 +7,9 @@
     border-color: red;
     border-style: dotted;
 }
+
+.poster-edge-gradient {
+    background: linear-gradient(to right, #044BAC, #C86BE7);
+    border-radius: 1.5rem;
+    padding: 0.4rem;
+}
