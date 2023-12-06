@@ -1,25 +1,32 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import LoginPresenter from './loginPresenter';
 import RegisterPresenter from './registerPresenter';
 import MoviePosterView from '../views/moviePageView';
+import GroupCreationPresenter from './groupCreationPresenter';
+import { store, persistor } from '../store';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
-
-const ReactRoot = observer((props) => {
+const ReactRoot = (props) => {
   return (
-    <Router>
-      <div>
-        <Routes>
-          <Route path="/login" element={<LoginPresenter firebaseModel={props.firebaseModel} />} />
-          <Route path="/register" element={<RegisterPresenter firebaseModel={props.firebaseModel} />} />
-        </Routes>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <div>
+            <Routes>
+              <Route path="/login" element={<LoginPresenter firebaseModel={props.firebaseModel} />} />
+              <Route path="/register" element={<RegisterPresenter firebaseModel={props.firebaseModel} />} />
+              <Route path="/groupCreation" element={<GroupCreationPresenter firebaseModel={props.firebaseModel}/>} />
+            </Routes>
 
-      </div>
-    </Router>
+          </div>
+        </Router>
+      </PersistGate>
+    </Provider>
   );
-});
+};
 
 export default ReactRoot;

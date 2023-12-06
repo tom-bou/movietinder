@@ -1,18 +1,27 @@
-import "../style.css";
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 function LoginView(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const dispatch = useDispatch();
 
   const onEmailLogin = async (email, password) => {
-    await props.onEmailLogin(email, password);
+    try {
+        await props.onEmailLogin(email, password);
+    } catch (err) {
+        setError(err.message);
+    }
   };
 
   const onGoogleLogin = async () => {
-    await props.onGoogleLogin();
+    try {
+        await props.onGoogleLogin();
+    } catch (err) {
+        setError(err.message);
+    }
   };
 
   return (
