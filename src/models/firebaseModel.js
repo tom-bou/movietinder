@@ -2,7 +2,7 @@ import firebaseConfig from "../firebaseConfig.js";
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getFirestore, collection, addDoc, getDocs, doc, setDoc, query, where, getDoc, onSnapshot, updateDoc, arrayUnion } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, getDocs, doc, setDoc, deleteDoc, where, getDoc, onSnapshot, updateDoc, arrayUnion } from 'firebase/firestore';
 
 class Firebase {
   constructor() {
@@ -26,10 +26,35 @@ class Firebase {
       })
     return userCredential;
   }
+
+  async leaveSession(sessionId, userId) {
+    const sessionRef = doc(this.firestore, 'sessions', sessionId);
+    const sessionDoc = await getDoc(sessionRef);
+
+    if (!sessionDoc.exists()) {
+      console.error('Session does not exist');
+      return;
+    }
+
+    const sessionData = sessionDoc.data();
+    sessionData.members = sessionData.members.filter(memberId => memberId !== userId);
+    sessionData.likes[userId] = []; // Optionally handle likes related to the user
+
+    if (sessionData.members.length === 0) {
+      // Delete the session if no members are left
+      await deleteDoc(sessionRef);
+      console.log('Session deleted as it has no more members');
+    } else {
+      // Update the session with the remaining members
+      await setDoc(sessionRef, sessionData);
+      console.log('Left the session:', sessionId);
+    }
+  }
   
   async signInWithEmailPassword(email, password) {
     const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
-    return userCredential;
+    const likedMovies = await this.getLikedMovies(userCredential.user.uid);
+    return {credentials: userCredential, likedMovies: likedMovies};
   }
 
   async signInWithGoogle() {
@@ -40,8 +65,8 @@ class Firebase {
         email: userCredential.user.email,
         likedMovies: []
       })
-
-    return userCredential;
+    const likedMovies = await this.getLikedMovies(userCredential.user.uid);
+    return {credentials: userCredential, likedMovies: likedMovies};
   }
   
 

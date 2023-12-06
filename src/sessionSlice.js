@@ -9,11 +9,10 @@ export const sessionSlice = createSlice({
     likedMovies: [],
   },
   reducers: {
-    setSessionId: (state, action) => {
-      state.sessionId = action.payload;
-    },
+
     joinSession: (state, action) => {
-      const userId = action.payload;
+      const userId = action.payload.userId;
+      state.sessionId = action.payload.sessionId;
       if (!state.members.includes(userId)) {
         state.members.push(userId);
       }
@@ -24,10 +23,15 @@ export const sessionSlice = createSlice({
         state.likedMovies.push(movieId);
       }
     },
+    leaveSession: (state) => {
+      state.sessionId = null;
+      state.members = [];
+      state.likedMovies = [];
+    },
 
   },
 });
 
-export const { setSessionId, joinSession, likeMovie, unlikeMovie } = sessionSlice.actions;
+export const { setSessionId, joinSession, likeMovie, unlikeMovie, leaveSession } = sessionSlice.actions;
 
 export default sessionSlice.reducer;

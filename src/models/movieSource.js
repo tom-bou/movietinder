@@ -23,7 +23,7 @@ export function getMovieDetails(movieId) {
     throw error;
   }
 
-  const url = BASE_URL + "movie/" + movieId + "?language=en-US";
+  const url = BASE_URL + "movie/" + movieId + "?language=en-US&api_key=" + API_KEY;
 
   return fetch(url, {
     method: "GET",
