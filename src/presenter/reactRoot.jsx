@@ -6,7 +6,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPresenter from './loginPresenter';
 import RegisterPresenter from './registerPresenter';
 import MoviePosterView from '../views/moviePageView';
+
 import LikesPresenter from './likesPresenter';
+
 
 
 const ReactRoot = observer((props) => {
@@ -17,6 +19,8 @@ const ReactRoot = observer((props) => {
           <Route path="/login" element={<LoginPresenter firebaseModel={props.firebaseModel} />} />
           <Route path="/register" element={<RegisterPresenter firebaseModel={props.firebaseModel} />} />
           <Route path="/yourlikes" element={<LikesPresenter firebaseModel={props.firebaseModel} />} />
+
+          <Route path="/movie" element={<Movie model={props.movieModel} />} />
         </Routes>
 
       </div>

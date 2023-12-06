@@ -1,5 +1,3 @@
-
-
 import { resolvePromise } from "./resolvePromise.js";
 import { getMovieDetails, getMovieVideo } from "./movieSource.js";
 import { get } from "mobx";
@@ -30,18 +28,16 @@ export default {
         console.error("Failed to get movie details, retrying...", error);
         tryGetMovieDetails(); // Recursive call for retry
       });
+
+      // check if the movie has a trailer and poster image if not try again
     }
 
     tryGetMovieDetails();
   },
 
-    //Funktion för gilla knappen. Filmen vi är inne på ska sparas för användaren och läggas i likedmovies
 
-    //
-
-}
-
-
+  // Funktion för gilla knappen. Filmen vi är inne på ska sparas för användaren och läggas i likedmovies
+};
 
 //Knappar - Corre
 //Visa informationen för varje film
