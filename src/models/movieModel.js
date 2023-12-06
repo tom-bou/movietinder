@@ -19,7 +19,7 @@ export default {
     }
 
     function tryGetMovieDetails() {
-      let searchParams = getRandomInt(869835);
+      let searchParams = getRandomInt(1000);
       let movieDetailsPromise = getMovieDetails(searchParams);
 
       resolvePromise(movieDetailsPromise, self.currentMoviePromiseState);
@@ -30,17 +30,13 @@ export default {
       });
 
       // check if the movie has a trailer and poster image if not try again
-      
     }
 
     tryGetMovieDetails();
   },
 
-  //D
 
-  //Funktion för gilla knappen. Filmen vi är inne på ska sparas för användaren och läggas i likedmovies
-
-  //
+  // Funktion för gilla knappen. Filmen vi är inne på ska sparas för användaren och läggas i likedmovies
 };
 
 //Knappar - Corre
