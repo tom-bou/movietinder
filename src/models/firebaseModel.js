@@ -54,6 +54,10 @@ class Firebase {
   async signInWithEmailPassword(email, password) {
     const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
     const likedMovies = await this.getLikedMovies(userCredential.user.uid);
+    await this.createUserProfile(userCredential.user.uid, {
+        email: userCredential.user.email,
+        likedMovies: []
+      })
     return {credentials: userCredential, likedMovies: likedMovies};
   }
 
@@ -135,7 +139,33 @@ async createSession(userIds) {
       [`likes.${userId}`]: []
     });
   }
-  
+
+  async getEmailFromUserId(userId) {
+    const userRef = doc(this.firestore, 'users', userId);
+    const userDoc = await getDoc(userRef);
+    if (userDoc.exists()) {
+      return userDoc.data().email;
+    }
+    return null;
+  }
+
+  async getSessionMembers(sessionId) {
+    const sessionRef = doc(this.firestore, 'sessions', sessionId);
+    const sessionDoc = await getDoc(sessionRef);
+    if (sessionDoc.exists()) {
+      const sessionData = sessionDoc.data();
+      return sessionData.members; // Or the appropriate logic to return members
+    }
+    return []; // Return an empty array if session doesn't exist or no members found
+  }
+  onSessionChanged(sessionId, callback) {
+    const sessionRef = doc(this.firestore, 'sessions', sessionId);
+    return onSnapshot(sessionRef, (doc) => {
+      if (doc.exists()) {
+        callback(doc.data());
+      }
+    });
+  }
 }
 
 

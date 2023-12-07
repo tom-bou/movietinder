@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import moviefilm from "../images/moviefilm.png"
 import popcorn from "../images/popcorn.png"
@@ -12,7 +11,6 @@ function LoginView(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  const dispatch = useDispatch();
 
   const onEmailLogin = async (email, password) => {
     try {
