@@ -2,13 +2,12 @@ import { observer } from "mobx-react-lite";
 import MoviePageView from "../views/moviePageView.jsx";
 
 export default observer(function MoviePagePresenter(props) {
-    console.log(props)
   function handleLikeACB(evt) {
-    props.model.likeMovie(props.model.searchParams);
+    props.model.likeMovie(props.model.currentMoviePromiseState.data);
   }
 
   function handleDislikeACB(evt) {
-    props.model.dislikeMovie(props.model.searchParams);
+    props.model.dislikeMovie(props.model.currentMoviePromiseState.data);
   }
 
   const promiseState = props.model.currentMoviePromiseState;
