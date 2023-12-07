@@ -37,6 +37,10 @@ npx tailwindcss -i ./src/input.css -o ./src/style.css --watch
     color: white;
 }
 
+.spanButton:hover {
+    cursor: pointer;
+}
+
 @layer utilities {
     .shadow-red-glow {
       text-shadow: 0 0 10px rgba(255, 0, 0, 0.7); /* Adjust the color and size as needed */

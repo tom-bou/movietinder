@@ -9,7 +9,8 @@ import { store, persistor } from '../store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import LikesPresenter from './likesPresenter';
-import Movie from '../views/moviePageView';
+import Movie from './moviePresenterTest';
+import MoviePageView from './moviePagePresenter';
 const ReactRoot = (props) => {
   return (
     <Provider store={store}>
@@ -22,11 +23,8 @@ const ReactRoot = (props) => {
               <Route path="/groupCreation" element={<GroupCreationPresenter firebaseModel={props.firebaseModel}/>} />
               <Route path="/yourlikes" element={<LikesPresenter firebaseModel={props.firebaseModel} />} />
               <Route path="/movie" element={<Movie model={props.movieModel} />} />
+              <Route path="/moviepage" element={<MoviePageView model={props.movieModel} />} />
             </Routes>
-
-
-
-
           </div>
         </Router>
       </PersistGate>

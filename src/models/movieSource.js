@@ -1,4 +1,4 @@
-import { BASE_URL, API_KEY, ACCESS_TOKEN } from "../TMDBApiConfig.js";
+import { BASE_URL, API_KEY, ACCESS_TOKEN } from "./TMDBApiConfig.js";
 
 export function getMovieDetails(movieId) {
   function myFetchACB(response) {
