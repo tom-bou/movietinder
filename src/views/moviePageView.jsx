@@ -4,7 +4,6 @@ import dislikebutton from "../images/dislikebutton.png";
 import likebutton from "../images/likebutton.png";
 import trailer from "../images/trailer.png";
 import logo from "../images/logo.png";
-import { type } from "@testing-library/user-event/dist/type";
 
 function MoviePageView(props) {
   /*
@@ -32,10 +31,10 @@ function MoviePageView(props) {
     navigate("/yourlikes");
   }
   return (
-    <div className="flex min-h-screen max-h-screen bg-custom-purple" style={{ background: 'linear-gradient(to bottom, #150629 60%, #1C0A34, #5A2960)' }}>
+    <div className="flex min-h-screen max-h-screen bg-custom-purple relative" style={{ background: 'linear-gradient(to bottom, #150629 60%, #1C0A34, #5A2960)' }}>
       <div className="p-1 flex-column w-1/2 xl:pl-10"> {/* Leftmost column */}
-        <div className="h-2/3 p-1 sm:pt-10 xl:h-3/4 xl:pt-10"> {/* Upper left */}
-          <div className="flex items-center justify-center h-full w-full"> {/* Div surrounding image element */}
+        <div className="h-2/3 flex items-center justify-center p-1 sm:pt-10 xl:h-3/4 xl:pt-10"> {/* Upper left */}
+          <div className="flex items-center justify-center h-full w-full max-h-fit max-w-fit"> {/* Div surrounding image element */}
             <img
               className="max-h-full poster-edge-gradient"
               src={image_url}
