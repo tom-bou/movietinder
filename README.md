@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# Short description of project
+A web app that helps you discover and pick movies that you want to watch. The user is shown one movie at a time. The movie's poster, description, actors and director(s) are shown to help the user decide whether or not they are interested in watching it. If the user wants to, they can also watch the movie's trailer. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# What we have done
+We have added all the most critical pages (login/register, main movie page and library of liked movies). The app is connected to our chosen API and successfully retreives the data needed to present each movie. There are some responsive layouts, but not for mobile view.
 
-## Available Scripts
+# What we plan to do
+We plan on adding a feature where the user can connect with their friends to a joint session and compare their top choices in a tournament-like format to decide a final movie to watch together. This will be done by choosing from your liked movies, but also a function of super liking a movie will be available to clearly separate the movies you REALLY want to watch.
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Project file structure (short description/purpose of each file)
+```
+📦 
+├─ .gitignore
+├─ README.md
+├─ package-lock.json
+├─ package.json
+├─ public
+│  ├─ favicon.ico
+│  ├─ index.html
+│  ├─ logo192.png
+│  ├─ logo512.png
+│  ├─ manifest.json
+│  └─ robots.txt
+├─ src
+│  ├─ firebaseConfig.js 
+│  ├─ images
+│  │  ├─ dislikebutton.png
+│  │  ├─ fire.png
+│  │  ├─ glasses.png
+│  │  ├─ likebutton.png
+│  │  ├─ loading.gif
+│  │  ├─ logo.png
+│  │  ├─ moviefilm.png
+│  │  ├─ moviegif.gif
+│  │  ├─ popcorn.png
+│  │  └─ trailer.png
+│  ├─ index.js
+│  ├─ models
+│  │  ├─ firebaseModel.js
+│  │  ├─ movieModel.js
+│  │  ├─ movieSource.js
+│  │  ├─ resolvePromise.js
+│  │  ├─ sessionModel.js
+│  │  └─ userModel.js
+│  ├─ presenter
+│  │  ├─ groupCreationPresenter.jsx
+│  │  ├─ likesPresenter.jsx
+│  │  ├─ loginPresenter.jsx
+│  │  ├─ moviePagePresenter.jsx  # Makes sure we have received the data from the API before trying to render the view.
+│  │  ├─ moviePresenterTest.jsx  # Testing presentation of data from API.
+│  │  ├─ reactRoot.jsx  # Routing.
+│  │  └─ registerPresenter.jsx
+│  ├─ sessionSlice.js
+│  ├─ store.js
+│  ├─ style.css  # Tailwind imports and custom CSS classes.
+│  ├─ userSlice.js
+│  └─ views
+│     ├─ errorModal.jsx
+│     ├─ groupCreationView.jsx
+│     ├─ likesView.jsx
+│     ├─ loginView.jsx
+│     ├─ moviePageView.jsx  # Presents the data from the API to the user in a neat way.
+│     ├─ movieViewTest.jsx  # Testing presentation of data from API.
+│     └─ registerView.jsx
+└─ tailwind.config.js  # Config file for styling using Tailwind CSS.
+```
+©generated by [Project Tree Generator](https://woochanleee.github.io/project-tree-generator)
