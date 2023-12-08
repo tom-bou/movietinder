@@ -42,7 +42,7 @@ function MoviePageView(props) {
             />
           </div>
         </div>
-        <div className="h-1/3"> {/* Lower left */}  
+        <div className=""> {/* Lower left */}  
           <div className="flex justify-center items-start space-x-6 p-5">
             <button onClick={dislikeACB} className="w-20 h-20 rotate-45">
               <img src={dislikebutton} alt="Dislike"/>
