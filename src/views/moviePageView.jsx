@@ -17,6 +17,8 @@ function MoviePageView(props) {
 
   var video_url = "https://www.youtube.com/embed/" + props.movieData.video;
 
+  props.movieData.cast = props.movieData.cast.slice(0, 5);
+
   function likeACB(evt) {
     props.onLike();
   }
@@ -75,12 +77,14 @@ function MoviePageView(props) {
             <div className="p-2 justify-center">
               <p className="shadow-white-glow text-3xl font-bold font-sans" style={{ color: "#F4FDCF", textShadow: "0px 0px 6px #FFE370" }}>ACTORS</p>
               <p className="text-category-body font-thin font-sans">
-                First Actor, Second Actor, Third Actor
+                {props.movieData.cast.map((actor, index) => { return actor.name + (index == props.movieData.cast.length - 1 ? "" : ", ") })}
               </p>
             </div>
             <div className="p-2 justify-center">
               <p className="shadow-white-glow text-3xl font-bold font-sans" style={{ color: "#F4FDCF", textShadow: "0px 0px 6px #FFE370" }}>DIRECTORS</p>
-              <p className="text-category-body font-thin font-sans">Director One, Director Two</p>
+              <p className="text-category-body font-thin font-sans">
+                {props.movieData.director.name}
+              </p>
             </div>
           </div>
         </div>
