@@ -3,12 +3,6 @@ import { getMovieDetails, getMovieVideo } from "./movieSource.js";
 import { get } from "mobx";
 
 export default {
-  title: "",
-  picture: "",
-  trailer: "",
-  summary: "",
-  genre: "",
-  releaseyear: "",
   currentMoviePromiseState: {},
 
   doRandomMovieSearch(searchParams) {

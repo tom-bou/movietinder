@@ -7,46 +7,74 @@ npx tailwindcss -i ./src/input.css -o ./src/style.css --watch
 @tailwind utilities;
 
 .debug {
-    border-width: 2px;
-    border-color: red;
-    border-style: dotted;
+  border-width: 2px;
+  border-color: red;
+  border-style: dotted;
 }
 
 .newMovieButton {
-    color: red;
-    padding: 10px;
+  color: red;
+  padding: 10px;
 }
 
 .poster-edge-gradient {
-    background: linear-gradient(to right, #044BAC, #C86BE7);
-    border-radius: 1.5rem;
-    padding: 0.4rem;
+  background: linear-gradient(to right, #044bac, #c86be7);
+  border-radius: 1.5rem;
+  padding: 0.4rem;
 }
 
 .bg-custom-purple {
-    background-color: #150629;
+  background-color: #150629;
 }
 
 .text-category-title {
-    font-size: 30px;
-    color: white;
+  font-size: 30px;
+  color: white;
 }
 
 .text-category-body {
-    font-size: 25px;
-    color: white;
+  font-size: 25px;
+  color: white;
 }
 
 .spanButton:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 @layer utilities {
-    .shadow-red-glow {
-      text-shadow: 0 0 10px rgba(255, 0, 0, 0.7); /* Adjust the color and size as needed */
-    }
-
-    .shadow-white-glow {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-      }
+  .shadow-red-glow {
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.7); /* Adjust the color and size as needed */
   }
+
+  .shadow-white-glow {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: rgb(105, 28, 160);
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.close-button {
+  float: right;
+  cursor: pointer;
+  font-size: 30px;
+  color: "#FF7272";
+  text-shadow: "0px 0px 6px #FFE370";
+  padding: 0px 10px;
+}
