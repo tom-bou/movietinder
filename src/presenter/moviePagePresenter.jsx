@@ -80,7 +80,7 @@ export default observer(function MoviePagePresenter(props) {
                     </p>
                   </div>
                   <div className="p-2 justify-center">
-                    <p className="shadow-white-glow text-3xl font-bold font-sans" style={{ color: "#F4FDCF", textShadow: "0px 0px 6px #FFE370" }}>DIRECTORS</p>
+                    <p className="shadow-white-glow text-3xl font-bold font-sans" style={{ color: "#F4FDCF", textShadow: "0px 0px 6px #FFE370" }}>DIRECTOR</p>
                     <p className="text-category-body font-thin font-sans"></p>
                   </div>
                 </div>
