@@ -32,7 +32,6 @@ export const userSlice = createSlice({
         (movieId) => movieId !== action.payload
       );
     },
-    // Add other reducers as needed...
   },
 });
 

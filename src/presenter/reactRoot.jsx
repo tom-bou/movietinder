@@ -17,16 +17,13 @@ const ReactRoot = (props) => {
         <Router>
           <div>
             <Routes>
+              <Route path="/" element={<LoginPresenter firebaseModel={props.firebaseModel} />} />
               <Route path="/login" element={<LoginPresenter firebaseModel={props.firebaseModel} />} />
               <Route path="/register" element={<RegisterPresenter firebaseModel={props.firebaseModel} />} />
               <Route path="/groupCreation" element={<GroupCreationPresenter firebaseModel={props.firebaseModel}/>} />
               <Route path="/yourlikes" element={<LikesPresenter firebaseModel={props.firebaseModel} />} />
               <Route path="/movie" element={<Movie model={props.movieModel} />} />
             </Routes>
-
-
-
-
           </div>
         </Router>
       </PersistGate>

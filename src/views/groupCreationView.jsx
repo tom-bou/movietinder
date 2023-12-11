@@ -9,7 +9,6 @@ function GroupCreationView({ firebaseModel }) {
   const user = useSelector((state) => state.user.details);
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const currentSessionId = useSelector((state) => state.session.sessionId);
-  const sessionMembers = useSelector((state) => state.session.members);
   const sessionMemberEmails = useSelector((state) => state.session.emails);
 
   const dispatch = useDispatch();
