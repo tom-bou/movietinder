@@ -5,6 +5,7 @@ import logo from "../images/logo.png";
 import fingerswipe from "../images/fingerswipe.png";
 import creategroup from "../images/creategroup.png";
 import keys from "../images/keys.png";
+import { useNavigate } from "react-router-dom";
 
 function GroupCreationView({ firebaseModel }) {
   const [loading, setLoading] = useState(false);
@@ -17,6 +18,11 @@ function GroupCreationView({ firebaseModel }) {
   const sessionMemberEmails = useSelector((state) => state.session.emails);
 
   const dispatch = useDispatch();
+  let navigate = useNavigate();
+
+  function windowSwipe(evt) {
+    navigate("/moviepage");
+  }
 
   useEffect(() => {
     let unsubscribe = () => {};
@@ -106,22 +112,21 @@ if (!isLoggedIn) {
   
   if (currentSessionId) {
     return (
-      <div className="flex min-h-screen flex min-h-screen" style={{ background: 'linear-gradient(to bottom, #150629 60%, #1C0A34, #5A2960)' }}>
-        <h1 className="text-4xl font-thin font-sans"
-          style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}>Movie Session</h1>
+      <div className="flex min-h-screen flex-col justify-start items-center" style={{ background: 'linear-gradient(to bottom, #150629 60%, #1C0A34, #5A2960)' }}>
+        <h1 className="text-4xl font-thin font-sans" style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}>Movie Session</h1>
         <p className="text-gray-600 mb-4">You are currently in a session: <span className="font-semibold">{currentSessionId}</span></p>
-
+    
         {sessionMemberEmails && (
-        <div>
-            <h2 className="text-lg font-semibold text-gray-800">Session Members:</h2>
+          <div>
+            <h2 className="text-2xl font-thin font-sans" style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}>Session Members:</h2>
             <ul className="list-disc list-inside">
-            {sessionMemberEmails.map((member, index) => (
+              {sessionMemberEmails.map((member, index) => (
                 <li key={index}>{member}</li>
-            ))}
+              ))}
             </ul>
-        </div>
-)}
-
+          </div>
+        )}
+    
         <button 
           onClick={handleLeaveSession} 
           disabled={loading}
@@ -129,10 +134,15 @@ if (!isLoggedIn) {
         >
           {loading ? 'Leaving...' : 'Leave Session'}
         </button>
+        <div className="p-4 w-full sm:w-1/3 sm:w-auto sm:flex-1 flex flex-col justify-center items-center animate-fade-up">
+        <h1 onClick={windowSwipe} className="text-4xl font-thin font-sans" style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}>START SWIPING</h1>
+        <button><img onClick={windowSwipe} className="w-32 hover:animate-wiggle-more mt-6" src={fingerswipe} alt="Swipe Finger" /></button>
       </div>
+      </div>
+      
     );
-  }
-  
+}
+
   return (
 <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom, #150629 60%, #1C0A34, #5A2960)' }}>
   <div className="grid grid-rows-2 grid-cols-1 justify-items-center items-center">
@@ -143,39 +153,43 @@ if (!isLoggedIn) {
 
     {/* Second row */}
     <div className="flex flex-col sm:flex-row justify-center items-start w-full">
+      
+      {/* CREATE NEW SESSION */}
       <div className="p-4 w-full sm:w-1/3 sm:w-auto sm:flex-1 flex justify-center items-center flex-col animate-jump-in animate-delay-[900ms]">
-        <button
-          onClick={createSession}
+        <h1
           disabled={loading}
           className="text-4xl font-thin font-sans"
           style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}
         >
           {loading ? 'Creating...' : 'CREATE NEW SESSION'}
-        </button>
-        <img className="mt-8 w-96 hover:animate-jump" src={creategroup} alt="Create Group" />
+        </h1>
+        <button><img className="mt-8 w-96 hover:animate-jump" src={creategroup} alt="Create Group" onClick={createSession}/></button>
       </div>
+
+      {/* START SWIPING*/}
       <div className="p-4 w-full sm:w-1/3 sm:w-auto sm:flex-1 flex flex-col justify-center items-center animate-jump-in animate-delay-[900ms]">
-        <h1 className="text-4xl font-thin font-sans" style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}>START SWIPING</h1>
-        <img className="w-32 hover:animate-wiggle-more mt-6" src={fingerswipe} alt="Swipe Finger" />
+        <h1 onClick={windowSwipe} className="text-4xl font-thin font-sans" style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}>START SWIPING</h1>
+        <button><img onClick={windowSwipe} className="w-32 hover:animate-wiggle-more mt-6" src={fingerswipe} alt="Swipe Finger" /></button>
       </div>
+
+      {/* JOIN A SESSION */}
       <div className="p-4 w-full sm:w-auto sm:flex-1 flex justify-center items-center flex-col animate-jump-in animate-delay-[900ms]">
-        <button
-          onClick={handleJoinSession}
+        <h1
           disabled={loading || !sessionId}
           className="text-4xl font-thin font-sans "
           style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}
         >
           {loading ? 'Joining...' : 'JOIN A SESSION'}
-        </button>
+        </h1>
         <input
           type="text"
           placeholder="Enter Session ID"
           value={sessionId}
           onChange={(e) => setSessionIdState(e.target.value)}
-          className="mt-6 flex shadow-inner border rounded py-2 px-10 text-gray-700 leading-normal focus:outline-none focus:shadow-outline "
-          style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}
+          className="mt-6 flex border rounded py-2 px-10 text-gray-700 leading-normal focus:outline-none focus:shadow-outline "
+          style={{ color: "#000000", textShadow: "0px 0px 4px #FFFFFF" }}
         />
-        <img className="w-32 hover:animate-shake mt-6" src={keys} alt="Keys" />
+        <img onClick={handleJoinSession} className="w-32 hover:animate-shake mt-6" src={keys} alt="Keys" />
       </div>
     </div>
   </div>
