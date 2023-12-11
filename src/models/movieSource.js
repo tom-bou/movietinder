@@ -1,4 +1,4 @@
-import { BASE_URL, API_KEY, ACCESS_TOKEN } from "../TMDBApiConfig.js";
+import { BASE_URL, API_KEY, ACCESS_TOKEN } from "./TMDBApiConfig.js";
 
 export function getMovieDetails(movieId) {
   function myFetchACB(response) {
@@ -18,6 +18,16 @@ export function getMovieDetails(movieId) {
     return getMovieVideo(movieId).then(videoToKeyChangeACB);
   }
 
+  function changeCreditsACB(movieDetails) {
+    function creditsToCastChangeACB(creditsResponse) {
+      movieDetails.cast = creditsResponse.cast;
+      movieDetails.director = creditsResponse.crew.find((crewMember) => crewMember.job === "Director");
+      console.log(movieDetails.director)
+      return movieDetails;
+    }
+    return getMovieCredits(movieId).then(creditsToCastChangeACB);
+  }
+
   function onErrorACB(error) {
     console.log("error is", error);
     throw error;
@@ -34,6 +44,7 @@ export function getMovieDetails(movieId) {
   })
     .then(myFetchACB)
     .then(changeVideoACB)
+    .then(changeCreditsACB)
     .catch(onErrorACB);
 }
 
@@ -49,6 +60,30 @@ function getMovieVideo(movieId) {
   }
 
   const url = BASE_URL + "movie/" + movieId + "/videos?language=en-US";
+
+  return fetch(url, {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: "Bearer " + ACCESS_TOKEN,
+    },
+  })
+    .then(myFetchACB)
+    .catch(onErrorACB);
+}
+
+function getMovieCredits(movieId) {
+  function myFetchACB(response) {
+    if (!response.ok) throw new Error("fetch failed");
+    return response.json();
+  }
+
+  function onErrorACB(error) {
+    console.log("error is", error);
+    throw error;
+  }
+
+  const url = BASE_URL + "movie/" + movieId + "/credits?language=en-US";
 
   return fetch(url, {
     method: "GET",

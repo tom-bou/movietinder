@@ -3,12 +3,6 @@ import { getMovieDetails, getMovieVideo } from "./movieSource.js";
 import { get } from "mobx";
 
 export default {
-  title: "",
-  picture: "",
-  trailer: "",
-  summary: "",
-  genre: "",
-  releaseyear: "",
   currentMoviePromiseState: {},
 
   doRandomMovieSearch(searchParams) {
@@ -35,7 +29,15 @@ export default {
     tryGetMovieDetails();
   },
 
+  likeMovie(movie) {
+    console.log(movie);
+    this.doRandomMovieSearch(Math.floor(Math.random() * Math.floor(869835)));
+  },
 
+  dislikeMovie(movie) {
+    console.log(movie);
+    this.doRandomMovieSearch(Math.floor(Math.random() * Math.floor(869835)));
+  }
   // Funktion för gilla knappen. Filmen vi är inne på ska sparas för användaren och läggas i likedmovies
 };
 

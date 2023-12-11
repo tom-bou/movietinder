@@ -1,7 +1,7 @@
 import "../style.css";
 
 function MovieView(props) {
-  // console.log(props.movieData);
+  console.log(props.movieData);
   var image_url =
     "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" +
     props.movieData.poster_path;
@@ -10,8 +10,7 @@ function MovieView(props) {
 
   function buttonEventHandlerACB(evt) {
     props.onButton();
-  }
-  
+  }  
   return (
     <div>
       <img src={image_url} />
