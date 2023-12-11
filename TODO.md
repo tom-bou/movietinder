@@ -1,3 +1,7 @@
+- Skapa startsida med info om projektet, oss själva och knapp för att gå till login-sidan.
+> Kommentar:
+- Fixa registrering av konto med egen e-postadress (ej Google-konto).
+> Kommentar: Just nu händer ingenting när man klickar på knappen "Register" och i konsolen ser man ett 404 felmeddelande (bad request).
 - När man likear filmer så ska de komma upp i yourlikes
 > Kommentar:
 - Döpa om groupCreation till menuPage
