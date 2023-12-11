@@ -117,7 +117,7 @@ function LikedMoviesView(props) {
   // Function to render individual movie items
   function renderMovie(movie) {
     return (
-      <div key={movie.id} onClick={() => movieClickACB(movie)} className="mb-2">
+      <div key={movie.id} onClick={() => movieClickACB(movie)} className="mb-2 animate-fade-up animate-delay-200">
         {/* Display movie details */}
         <img
           src={movie.picture}

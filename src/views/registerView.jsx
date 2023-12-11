@@ -65,10 +65,10 @@ function RegisterView({ onRegister, error }) {
       </div>
       <div className="absolute inset-0 flex items-center justify-center">
       <div className="bg-gradient-to-br from-pink-900 via-violet-700 blur-md to-blue-900 rounded-lg absolute top-15 left-15 right-15 bottom-15 z-0" style={{ width: '460px', height:'350px' }}></div>
-      <img src={moviefilm} alt="Movie icon" class="absolute left-20 bottom-60 w-60 rotate-6 transform -rotate-3 duration-1000 hover:rotate-[3deg]"/>
-      <img src={popcorn} alt="Popcorn icon" class="absolute right-20 bottom-20 w-52 rotate-6 transform rotate-3 duration-1000 hover:rotate-[-3deg]" />
-      <img src={logo} alt="Logo icon" class="shadow-inner absolute left-2 top-7 w-40"  style={{ filter: 'drop-shadow(0 0 0.2rem #C772ED)' }} />
-      <img src={glasses} alt="Glasses icon" class="absolute right-60 top-20 w-40 -rotate-6 transform rotate-3 duration-1000 hover:rotate-[10deg]" />
+      <img src={moviefilm} alt="Movie icon" class="absolute left-20 bottom-60 w-60"/>
+      <img src={popcorn} alt="Popcorn icon" class="absolute right-20 bottom-20 w-52" />
+      <img src={logo} alt="Logo icon" class="shadow-inner absolute left-4 top-4 w-36"  style={{ filter: 'drop-shadow(0 0 0.2rem #C772ED)' }} />
+      <img src={glasses} alt="Glasses icon" class="absolute right-60 top-20 w-40" />
       
 
     </div>
