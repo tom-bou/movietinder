@@ -7,7 +7,7 @@ import fingerswipe from "../images/fingerswipe.png";
 import creategroup from "../images/creategroup.png";
 import keys from "../images/keys.png";
 import watchingtv from "../images/watchingtv.gif";
-import computer from "../images/computer.png";
+import fourpeople from "../images/fourpeople.gif";
 import { useNavigate } from "react-router-dom";
 
 function GroupCreationView({ firebaseModel }) {
@@ -165,18 +165,17 @@ return (
     </div>
 
 {/* SCROLL SECTION 2*/}
-    <div className="flex snap-always snap-center items-center" style={{ background: 'linear-gradient(to bottom, #8E4599 10%, #8CA1DF)' }}>
-    <div className="flex flex-col sm:flex-row justify-center items-start w-full pb-12">
-    <div className="pt-24 p-4 w-full sm:w-1/2 sm:w-auto sm:flex-1 flex justify-center items-center flex-col">
-    <img class=" w-3/5 justify-center" src={computer} />
+    <div className="flex snap-always snap-center items-center" style={{ background: 'linear-gradient(to bottom, #FFE0FF 10%, #FFE0FF)' }}>
+    <div className="flex flex-col sm:flex-row justify-center items-start w-full">
+    <div className=" w-full sm:w-1/2 sm:w-auto sm:flex-1 flex justify-left items-left flex-col">
+    <img class=" justify-center items-center" src={fourpeople} />
     </div>
     <div className=" pt-24 pr-12 p-4 w-full sm:w-1/2 sm:w-auto sm:flex-1 flex justify-center items-center flex-col">
-    <h1 className="text-4xl flex col font-thin font-sans justify-center text-center" style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}>About Us</h1>
-    <p class=" text-2xl px-10 pt-8 font-thin font-sans text-white justify-center text-center">Behind this project stands our team consisting of David Tanudin, 
+    <h1 className="pt-4 text-4xl flex col font-thin font-sans justify-center text-center" style={{ color: "#2A1547", textShadow: "0px 0px 4px #2A1547" }}>Who are we?</h1>
+    <p class=" text-2xl px-10 pt-8 font-thin font-sans justify-center text-center" style={{ color: "#2A1547"}}>Behind this project stands our team consisting of four people; David Tanudin, 
     Cornelia Kärnekull, Tom Boustedt and Linus Bälter, all pursuing the Media Technology program at KTH in our third year. 
-    By combining our diverse strengths and aligned goals, we have together created this app - Movie Tinder.
+    By combining our diverse strengths and aligned goals, we have together created this app - Movie Tinder. <br/> <br/> Enjoy!
      </p>
-
     </div>
     </div>
     </div>
