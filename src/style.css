@@ -78,3 +78,63 @@ npx tailwindcss -i ./src/input.css -o ./src/style.css --watch
   text-shadow: "0px 0px 6px #FFE370";
   padding: 0px 10px;
 }
+
+
+
+
+/*Code Pen to get stars https://codepen.io/rohitk242/pen/ZEaVMKz*/
+body {
+	background: rgb(31, 10, 73);
+	position: relative;
+	width: 100%;
+	height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.block {
+	position: relative;
+	height: 100%;
+	background-image: radial-gradient(
+		circle at 50% 90%,
+		#402d68,
+		#110626 79%,
+		#0e011b
+	);
+	overflow: hidden;
+	box-sizing: border-box;
+}
+.block:after {
+	position: absolute;
+	content: "";
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: url("https://imgur.com/B2VVbTo.png");
+	background-size: cover;
+	animation: stars 40s linear infinite alternate;
+}
+.block:before {
+	position: absolute;
+	content: "";
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: url("https://imgur.com/OzQPJqM.png");
+	background-size: cover;
+	animation: stars 70s linear infinite alternate;
+}
+
+@keyframes stars {
+	0% {
+		-webkit-transform: rotate(-14deg);
+		transform: rotate(-14deg);
+	}
+	100% {
+		-webkit-transform: rotate(14deg);
+		transform: rotate(14deg);
+	}
+}
