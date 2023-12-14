@@ -37,7 +37,7 @@ export default observer(function MoviePagePresenter(props) {
               <div className="h-2/3 flex items-center justify-center p-1 sm:pt-10 xl:h-3/4 xl:pt-10"> {/* Upper left */}
                 <div className="flex items-center justify-center h-full w-full max-h-fit max-w-fit"> {/* Div surrounding image element */}
                   <img
-                    className="w-3/4 lg:w-1/2"
+                    className="w-2/4 lg:w-1/2"
                     src="https://www.uokajk.edu.pk/data/ecounselling/assets/chat_info_icon.gif"
                     alt="Loading gif"
                   />

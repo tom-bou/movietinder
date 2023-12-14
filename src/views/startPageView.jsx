@@ -11,7 +11,7 @@ import fourpeople from "../images/fourpeople.gif";
 import arrowdown from "../images/arrowdown.png";
 import { useNavigate } from "react-router-dom";
 
-function GroupCreationView({ firebaseModel }) {
+function StartPageView({ firebaseModel }) {
   const [loading, setLoading] = useState(false);
   const [sessionId, setSessionIdState] = useState('');
 
@@ -249,4 +249,4 @@ return (
   </div>
 );
 }
-export default GroupCreationView;
+export default StartPageView;

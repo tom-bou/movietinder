@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import LoginPresenter from './loginPresenter';
 import RegisterPresenter from './registerPresenter';
-import GroupCreationPresenter from './groupCreationPresenter';
+import StartPagePresenter from './startPagePresenter';
 import { store, persistor } from '../store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -20,7 +20,7 @@ const ReactRoot = (props) => {
             <Routes>
               <Route path="/login" element={<LoginPresenter firebaseModel={props.firebaseModel} />} />
               <Route path="/register" element={<RegisterPresenter firebaseModel={props.firebaseModel} />} />
-              <Route path="/groupCreation" element={<GroupCreationPresenter firebaseModel={props.firebaseModel}/>} />
+              <Route path="/startpage" element={<StartPagePresenter firebaseModel={props.firebaseModel}/>} />
               <Route path="/yourlikes" element={<LikesPresenter firebaseModel={props.firebaseModel} />} />
               <Route path="/movie" element={<Movie model={props.movieModel} />} />
               <Route path="/moviepage" element={<MoviePageView model={props.movieModel} />} />

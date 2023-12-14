@@ -33,6 +33,10 @@ function MoviePageView(props) {
     navigate("/yourlikes");
   }
 
+  function windowToStartPage(evt) {
+    navigate("/startpage");
+  }
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   function openModal() {
@@ -194,12 +198,12 @@ function MoviePageView(props) {
           </p>
         </div>
       </div>
+      <button className="hidden xl:flex shadow-inner absolute top-7 w-40" style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }} alt="Logo icon">
       <img
+        onClick={windowToStartPage}
         src={logo}
-        alt="Logo icon"
-        className="hidden xl:flex shadow-inner absolute top-7 w-40"
-        style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }}
       />
+      </button>
     </div>
   );
 }
