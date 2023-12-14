@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import ErrorModal from './errorModal';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moviefilm from "../images/moviefilm.png"
 import popcorn from "../images/popcorn.png"
 import logo from "../images/logo.png"
 import glasses from "../images/glasses.png"
+import { useNavigate } from "react-router-dom";
 
 function RegisterView({ onRegister, error }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showModal, setShowModal] = useState(false);
+
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
+
+  function windowToStartPage(evt) {
+    navigate("/startpage");
+  }
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
@@ -67,7 +76,7 @@ function RegisterView({ onRegister, error }) {
       <div className="bg-gradient-to-br from-pink-900 via-violet-700 blur-md to-blue-900 rounded-lg absolute top-15 left-15 right-15 bottom-15 z-0" style={{ width: '460px', height:'350px' }}></div>
       <img src={moviefilm} alt="Movie icon" class="absolute left-20 bottom-60 w-60"/>
       <img src={popcorn} alt="Popcorn icon" class="absolute right-20 bottom-20 w-52" />
-      <img src={logo} alt="Logo icon" class="shadow-inner absolute left-4 top-4 w-36"  style={{ filter: 'drop-shadow(0 0 0.2rem #C772ED)' }} />
+      <button><img src={logo} onClick={windowToStartPage} alt="Logo icon" class="shadow-inner absolute left-4 top-4 w-36"  style={{ filter: 'drop-shadow(0 0 0.2rem #C772ED)' }} /></button>
       <img src={glasses} alt="Glasses icon" class="absolute right-60 top-20 w-40" />
       
 

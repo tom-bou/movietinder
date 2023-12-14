@@ -3,6 +3,7 @@ import '../style.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { joinSession, leaveSession, setSessionMembers } from '../sessionSlice';
 import biglogo from "../images/biglogo.png";
+import logo from "../images/logo.png";
 import fingerswipe from "../images/fingerswipe.png";
 import creategroup from "../images/creategroup.png";
 import keys from "../images/keys.png";
@@ -30,6 +31,9 @@ function StartPageView({ firebaseModel }) {
     navigate("/moviepage");
   }
 
+  function windowLogin(evt) {
+    navigate("/login");
+  }
   useEffect(() => {
     let unsubscribe = () => {};
 
@@ -157,13 +161,53 @@ return (
   <div className="snap-y snap-mandatory overflow-scroll h-screen w-screen bg-fixed" style={{ background: 'linear-gradient(to bottom, #150629 30%, #1C0A34 40%, #8E4599)' }}>
 
 {/* SCROLL SECTION 1*/}
-    <div className="snap-start h-screen grid grid-rows-2 grid-cols-1 justify-items-center items-center block">
-    <img className=" pt-72 w-2/3 shadow-inner animate-fade animate-delay-[400ms]" style={{ filter: 'drop-shadow(0 0 0.4rem #C772ED)'}} src={biglogo} alt="Logo icon" />
-      
-      <h1 className="text-3xl flex col font-thin font-sans pt-32 tracking-wide justify-center text-center animate-fade-right animate-delay-[900ms]" style={{ color: "#FFFFFF", textShadow: "0px 0px 3px #FFFFFF" }}>
-      Swipe, Like, Save Time On Your Movie Night!</h1>
-      <img class="animate-bounce w-20 pb-20 animate-duration-[2500ms]" style={{ filter: 'drop-shadow(0 0 0.4rem #C772ED)'}} src={arrowdown}/>
-    </div>
+    <div className=" snap-start h-screen grid grid-rows-2 grid-cols-1 justify-items-center items-center block">
+    <nav class=" font-sans rounded-sm z-10 bg-[#150629cb] fixed  top-0 flex justify-between items-center w-full py-2 px-8">
+  <div class="md:static md:min-h-fit">
+    <ul class="flex md:flex-row flex-col items-center md:gap-6">
+      <li>
+      <button><a class="text-white hover:text-pink-300" onClick={windowSwipe} style={{textShadow: "0px 0px 4px #FFFFFF" }} href="#">Swipe</a></button>
+      </li>
+      <li>
+        <button><a onClick={createSession} class="text-white hover:text-pink-300" style={{textShadow: "0px 0px 4px #FFFFFF" }} href="#">Create Session</a></button>
+      </li>
+      <li>
+      <button className="flex items-center">
+  <h1
+    disabled={loading || !sessionId}
+    className="text-4xl font-thin font-sans"
+    style={{ color: "#000000", textShadow: "0px 0px 4px #FFFFFF" }}
+  >
+  </h1>
+  <input
+    type="text"
+    placeholder="Enter Session ID"
+    value={sessionId}
+    onChange={(e) => setSessionIdState(e.target.value)}
+    className="flex border rounded px-8 text-gray-700 leading-normal focus:outline-none focus:shadow-outline"
+  />
+  <img
+    onClick={handleJoinSession}
+    className="w-8 hover:animate-wiggle ml-2"
+    src={keys}
+    alt="Keys"
+  />
+</button>
+      </li>
+    </ul>
+  </div>
+  <div class="">
+    <button onClick={windowLogin} class="bg-[#F4D0FD] px-4 py-1 text-[#2A1547] rounded-lg" style={{textShadow: "0px 0px 2px #812789" }}>
+      Login
+    </button>
+  </div>
+</nav>
+  <img className="pt-16 md:pt-96 w-2/3 shadow-inner animate-fade animate-delay-[400ms]" style={{ filter: 'drop-shadow(0 0 0.4rem #C772ED)' }} src={biglogo} alt="Logo icon" />
+  <h1 className="text-3xl flex col font-thin font-sans md:pt-56 tracking-wide justify-center text-center animate-fade-right animate-delay-[900ms]" style={{ color: "#FFFFFF", textShadow: "0px 0px 3px #FFFFFF" }}>
+    Swipe, Like, Save Time On Your Movie Night!
+  </h1>
+  <img className="animate-bounce animate-duration-[2500ms] md:w-20 md:pb-12 md:pt-8" style={{ filter: 'drop-shadow(0 0 0.4rem #C772ED)' }} src={arrowdown} alt="Arrow down" />
+</div>
 
 {/* SCROLL SECTION 2*/}
     <div className="flex snap-always snap-center items-center" style={{ background: 'linear-gradient(to bottom, #FFE0FF 10%, #FFE0FF)' }}>
@@ -201,7 +245,7 @@ return (
 
 
   {/* SCROLL SECTION 4*/}
-  <div className="snap-always snap-center bg-gradient-to-r from-indigo-950 via-purple-950 to-indigo-950" >
+  <div className="z-12 snap-always snap-center bg-gradient-to-r from-indigo-950 via-purple-950 to-indigo-950" >
   <div className="flex flex-col sm:flex-row justify-center items-start w-full">
     {/* CREATE NEW SESSION */}
     <div className="pt-40 p-4 w-full sm:w-1/3 sm:w-auto sm:flex-1 flex justify-center items-center flex-col animate-jump-in animate-delay-[900ms]">

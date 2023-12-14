@@ -1,8 +1,11 @@
 import { removeMovieFromLiked } from "../presenter/likesPresenter.jsx";
 import likebutton from "../images/likebutton.png";
+import { useSelector, useDispatch } from 'react-redux';
 import fire from "../images/fire.png";
 import logo from "../images/logo.png";
 import { useNavigate } from "react-router-dom";
+
+
 
 //Example on API
 const Likedmovieslist = [
@@ -65,6 +68,10 @@ function LikedMoviesView(props) {
     navigate("/moviepage");
   }
 
+  function windowToStartPage(evt) {
+    navigate("/login");
+  }
+
   return (
     
     <div
@@ -103,12 +110,13 @@ function LikedMoviesView(props) {
           className="absolute right-14 top-7 w-10"
         />
       </span>
-      <img
+      <button><img
+        onClick={windowToStartPage}
         src={logo}
         alt="Logo icon"
         class="shadow-inner absolute left-2 top-7 w-40"
         style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }}
-      />
+      /></button>
       <div className="flex flex-wrap justify-start gap-20 m-20">
         {Likedmovieslist.map((movie) => renderMovie(movie))}
       </div>
