@@ -8,6 +8,7 @@ import creategroup from "../images/creategroup.png";
 import keys from "../images/keys.png";
 import watchingtv from "../images/watchingtv.gif";
 import fourpeople from "../images/fourpeople.gif";
+import arrowdown from "../images/arrowdown.png";
 import { useNavigate } from "react-router-dom";
 
 function GroupCreationView({ firebaseModel }) {
@@ -159,9 +160,9 @@ return (
     <div className="snap-start h-screen grid grid-rows-2 grid-cols-1 justify-items-center items-center block">
     <img className=" pt-72 w-2/3 shadow-inner animate-fade animate-delay-[400ms]" style={{ filter: 'drop-shadow(0 0 0.4rem #C772ED)'}} src={biglogo} alt="Logo icon" />
       
-      <h1 className="text-3xl flex col font-thin font-sans tracking-wide justify-center text-center animate-fade-right animate-delay-[900ms]" style={{ color: "#FFFFFF", textShadow: "0px 0px 3px #FFFFFF" }}>
+      <h1 className="text-3xl flex col font-thin font-sans pt-32 tracking-wide justify-center text-center animate-fade-right animate-delay-[900ms]" style={{ color: "#FFFFFF", textShadow: "0px 0px 3px #FFFFFF" }}>
       Swipe, Like, Save Time On Your Movie Night!</h1>
-      <h1 class="animate-bounce">v</h1>
+      <img class="animate-bounce w-20 pb-20 animate-duration-[2500ms]" style={{ filter: 'drop-shadow(0 0 0.4rem #C772ED)'}} src={arrowdown}/>
     </div>
 
 {/* SCROLL SECTION 2*/}
