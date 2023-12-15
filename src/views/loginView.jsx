@@ -78,7 +78,7 @@ function windowToStartPage(evt) {
      <div className="bg-gradient-to-br from-pink-900 via-violet-700 blur-md to-blue-900 rounded-lg absolute top-15 left-15 right-15 bottom-15 z-0" style={{ width: '460px', height:'350px' }}></div>
      <img src={moviefilm} alt="Movie icon" class="absolute left-20 bottom-60 w-60 animate-fade-right animate-delay-[800ms]"/>
      <img src={popcorn} alt="Popcorn icon" class="absolute right-20 bottom-20 w-52 animate-fade-left animate-delay-[1200ms]" />
-     <button><img src={logo} onClick={windowToStartPage} alt="Logo icon" class="shadow-inner absolute left-4 top-4 w-36"  style={{ filter: 'drop-shadow(0 0 0.2rem #C772ED)' }} /></button>
+     <button><img src={logo} onClick={windowToStartPage} alt="Logo icon" class="shadow-inner absolute left-2 top-7 w-40"  style={{ filter: 'drop-shadow(0 0 0.2rem #C772ED)' }} /></button>
      <img src={glasses} alt="Glasses icon" class="absolute right-60 top-20 w-40 animate-fade-left animate-delay-[400ms]" />
 
     </div>

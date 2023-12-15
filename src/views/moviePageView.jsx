@@ -198,7 +198,7 @@ function MoviePageView(props) {
           </p>
         </div>
       </div>
-      <button className="hidden xl:flex shadow-inner absolute top-7 w-40" style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }} alt="Logo icon">
+      <button className="hidden xl:flex shadow-inner absolute left-2 top-7 w-40" style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }} alt="Logo icon">
       <img
         onClick={windowToStartPage}
         src={logo}
