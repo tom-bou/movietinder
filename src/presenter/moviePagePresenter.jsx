@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import MoviePageView from "../views/moviePageView.jsx";
-import loading from "../images/loading.gif"
+import loadingpinkblue from "../images/loadingpinkblue.gif"
 import logo from "../images/logo.png";
 import dislikebutton from "../images/dislikebutton.png";
 import likebutton from "../images/likebutton.png";
@@ -33,12 +33,12 @@ export default observer(function MoviePagePresenter(props) {
       } else {
         return (
           <div className="flex min-h-screen max-h-screen bg-custom-purple relative" style={{ background: 'linear-gradient(to bottom, #150629 60%, #1C0A34, #5A2960)' }}>
-            <div className="p-1 flex-column w-1/2 xl:pl-10"> {/* Leftmost column */}
+            <div className="p-1 xl:mt-40 flex-column w-1/2 xl:pl-10"> {/* Leftmost column */}
               <div className="h-2/3 flex items-center justify-center p-1 sm:pt-10 xl:h-3/4 xl:pt-10"> {/* Upper left */}
                 <div className="flex items-center justify-center h-full w-full max-h-fit max-w-fit"> {/* Div surrounding image element */}
                   <img
-                    className="w-2/4 lg:w-1/2"
-                    src="https://www.uokajk.edu.pk/data/ecounselling/assets/chat_info_icon.gif"
+                    className="w-1/4 lg:w-1/5"
+                    src={loadingpinkblue}
                     alt="Loading gif"
                   />
                 </div>

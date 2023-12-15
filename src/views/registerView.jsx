@@ -34,7 +34,7 @@ function RegisterView({ onRegister, error }) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen " style={{ background: 'linear-gradient(to bottom, #150629 60%, #1C0A34, #5A2960)' }}>
+    <div className="flex flex-col items-center justify-center min-h-screen " style={{ background: 'linear-gradient(to bottom, #150629 40%, #1C0A34, #5A2960)' }}>
       <div className="p-6 rounded-lg shadow-lg bg-white max-w-md w-full border-2 border-violet-800 bg-gradient-to-br from-pink-300 via-violet-400 to-violet-500 z-10">
         <h1 className="text-xl font-semibold text-center text-white mb-4 tracking-wider">REGISTER</h1>
         <input

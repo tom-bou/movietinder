@@ -9,6 +9,7 @@ import creategroup from "../images/creategroup.png";
 import keys from "../images/keys.png";
 import watchingtv from "../images/watchingtv.gif";
 import fourpeople from "../images/fourpeople.gif";
+import filmcamera from "../images/filmcamera.gif"
 import arrowdown from "../images/arrowdown.png";
 import { useNavigate } from "react-router-dom";
 
@@ -117,39 +118,41 @@ function StartPageView({ firebaseModel }) {
 
   // UI rendering logic
 if (!isLoggedIn) {
-    return <div className="text-center py-4 text-lg text-gray-700" style={{ background: 'linear-gradient(to bottom, #150629 60%, #1C0A34, #5A2960)' }}>Please log in to create or join a session.</div>;
+    return <div className="text-center py-4 text-lg text-white" style={{ background: 'linear-gradient(to bottom, #150629 60%, #1C0A34, #5A2960)' }}>Please log in to create or join a session.</div>;
   }
   
   if (currentSessionId) {
     return (
-      <div className="flex min-h-screen flex-col justify-start items-center" style={{ background: 'linear-gradient(to bottom, #150629 60%, #1C0A34, #5A2960)' }}>
-        <div className="mt-10 p-6 rounded-lg shadow-lg bg-white max-w-md w-full border-2 border-violet-800 bg-gradient-to-br from-pink-300 via-violet-400 to-violet-500 z-10">
-        <h1 className=" items-center justify-center text-4xl font-thin font-sans" style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}>Movie Session</h1>
-        <p className="text-gray-600 mb-4">You are currently in a session: <span className="font-semibold">{currentSessionId}</span></p>
+      <div className="flex min-h-screen text-center flex-col justify-start items-center" style={{ background: 'linear-gradient(to bottom, #080629 40%, #111D3D, #27355D)' }} >
+        <div className="mt-10 p-6 rounded-lg shadow-lg bg-white max-w-md animate-fade-down w-full border-4 border-[#4AADAB] bg-[#162534] z-10 shadow-lg"
+          style={{ filter: "drop-shadow(0 0 1.5em #4AADAB)" }}>
+      
+        <h1 className="items-center text-4xl font-thin font-sans" style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}>Movie Session</h1>
+        <p className=" text-2xl text-white font-sans font-thin mb-4">You are currently in a session: <br /> <span className="text-xl font-thin  font-sans">{currentSessionId}</span></p>
+        
     
         {sessionMemberEmails && (
           <div>
-            <h2 className="text-2xl font-thin font-sans" style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}>Session Members:</h2>
-            <ul className="list-disc list-inside">
+            <h2 className="pt-4 text-4xl font-thin font-sans" style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}>Session Members:</h2>
+            <ul className="text-xl list-disc list-inside text-white font-sans font-thin">
               {sessionMemberEmails.map((member, index) => (
                 <li key={index}>{member}</li>
               ))}
             </ul>
           </div>
         )}
+        <img class="mt-10" src={filmcamera}/>
+        <button><h1 onClick={windowSwipe} className="z-20 text-4xl font-thin font-sans hover:animate-jump animate-duration-1000" style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}>START SWIPING</h1></button>
         </div>
     
         <button 
           onClick={handleLeaveSession} 
           disabled={loading}
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded disabled:bg-red-300 mt-4"
+          className="z-10 bg-[#3FAF94] hover:bg-[#16846E] text-white font-normal py-2 px-4 rounded hover:bg-[#691D3D] mt-8 animate-fade-up animate-delay-1000"
+          
         >
           {loading ? 'Leaving...' : 'Leave Session'}
         </button>
-        <div className="p-4 w-full sm:w-1/3 sm:w-auto sm:flex-1 flex flex-col justify-center items-center animate-fade-up">
-        <h1 onClick={windowSwipe} className="text-4xl font-thin font-sans" style={{ color: "#FFFFFF", textShadow: "0px 0px 4px #FFFFFF" }}>START SWIPING</h1>
-        <button><img onClick={windowSwipe} className="w-32 hover:animate-wiggle-more mt-6" src={fingerswipe} alt="Swipe Finger" /></button>
-      </div>
       </div>
       
     );

@@ -21,7 +21,7 @@ export default observer(function Movie(props) {
         );
       } else {
         return (
-          <img
+          <img 
             src="https://brfenergi.se/iprog/loading.gif"
             alt="Loading..."
           ></img>

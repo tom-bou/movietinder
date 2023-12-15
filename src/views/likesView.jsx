@@ -77,7 +77,7 @@ function LikedMoviesView(props) {
     <div
       className="flex flex-col items-center justify-center min-h-screen"
       style={{
-        background: "linear-gradient(to bottom, #150629 60%, #1C0A34, #5A2960)",
+        background: "linear-gradient(to bottom, #150629 40%, #1C0A34, #5A2960)",
       }}
     >
       <h1

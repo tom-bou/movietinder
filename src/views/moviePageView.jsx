@@ -60,22 +60,22 @@ function MoviePageView(props) {
 
   return (
     <div
-      className="flex min-h-screen max-h-screen bg-custom-purple relative"
+      className="flex min-h-screen max-h-screen bg-custom-purple relative animate-fade"
       style={{
-        background: "linear-gradient(to bottom, #150629 60%, #1C0A34, #5A2960)",
+        background: "linear-gradient(to bottom, #150629 40%, #1C0A34, #5A2960)",
       }}
     >
       <div className="p-1 flex-column w-1/2 xl:pl-10">
         {" "}
         {/* Leftmost column */}
-        <div className="h-2/3 flex items-center justify-center p-1 sm:pt-10 xl:h-3/4 xl:pt-10">
+        <div className="h-2/3 mt-10 flex items-center justify-center p-1 sm:pt-10 xl:h-3/4 xl:pt-10">
           {" "}
           {/* Upper left */}
           <div className="flex items-center justify-center h-full w-full max-h-fit max-w-fit">
             {" "}
             {/* Div surrounding image element */}
             <img
-              className="max-h-full poster-edge-gradient"
+              className="max-h-full poster-edge-gradient shadow-lg" style={{ filter: "drop-shadow(0 0 1.5em #412EBB)" }}
               src={image_url}
               alt="Movie poster"
             />
