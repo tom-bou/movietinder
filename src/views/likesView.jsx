@@ -7,56 +7,32 @@ import { useNavigate } from "react-router-dom";
 
 
 
-//Example on API
-const Likedmovieslist = [
-  {
-    id: 1,
-    title: "Avatar",
-    picture:
-      "https://lumiere-a.akamaihd.net/v1/images/p_disney_wish_799_v2_9b93081b.jpeg?region=0%2C0%2C540%2C810",
+const likedMovies = [
+  { // Example of movie object from API
+    id: 226,
+    original_title: "Don't Don't Cry",
+    poster_path: "/nKXTgbruSrezC1tAeKB6Ri7cGkK.jpg",
+    director: {
+      name: "Kimberly Peirce"
+    },
+    cast: [{name: "Hilary Swank"}, {name: "Chloë Sevigny"}, {name: "Peter Sarsgaard"}],
+    genres: [{name: "Crime"}, {name: "Drama"}]
   },
   {
-    id: 2,
-    title: "Aquaman",
-    picture:
-      "https://lumiere-a.akamaihd.net/v1/images/p_disneymovies_avatarthewayofwater_streamingupdate_2096_0908fa1b.jpeg",
-  },
-  {
-    id: 3,
-    title: "Scary movie",
-    picture:
-      "https://assets-in.bmscdn.com/discovery-catalog/events/et00313411-kzwupkjajz-portrait.jpg",
-  },
-
-  {
-    id: 4,
-    title: "Avatar",
-    picture:
-      "https://lumiere-a.akamaihd.net/v1/images/p_disney_wish_799_v2_9b93081b.jpeg?region=0%2C0%2C540%2C810",
-  },
-  {
-    id: 5,
-    title: "Aquaman",
-    picture:
-      "https://lumiere-a.akamaihd.net/v1/images/p_disneymovies_avatarthewayofwater_streamingupdate_2096_0908fa1b.jpeg",
-  },
-  {
-    id: 6,
-    title: "Scary movie",
-    picture:
-      "https://assets-in.bmscdn.com/discovery-catalog/events/et00313411-kzwupkjajz-portrait.jpg",
-  },
-  {
-    id: 7,
-    title: "Avatar",
-    picture:
-      "https://lumiere-a.akamaihd.net/v1/images/p_disney_wish_799_v2_9b93081b.jpeg?region=0%2C0%2C540%2C810",
-  },
+    id: 226,
+    original_title: "Don't Don't Cry 2",
+    poster_path: "/nKXTgbruSrezC1tAeKB6Ri7cGkK.jpg",
+    director: {
+      name: "Kimberly Peirce"
+    },
+    cast: [{name: "Hilary Swank"}, {name: "Chloë Sevigny"}, {name: "Peter Sarsgaard"}],
+    genres: [{name: "Crime"}, {name: "Drama"}]
+  }
 ];
 
 //Displaying liked movies and allowing removal
 function LikedMoviesView(props) {
-  const numberOflikes = Likedmovieslist.length;
+  const numberOflikes = likedMovies.length;
 
   function movieClickACB(movie) {
     props.functionsnamnet(movie);
@@ -118,19 +94,22 @@ function LikedMoviesView(props) {
         style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }}
       /></button>
       <div className="flex flex-wrap justify-start gap-20 m-20">
-        {Likedmovieslist.map((movie) => renderMovie(movie))}
+        {likedMovies.map((movie) => renderMovie(movie))}
       </div>
     </div>
   );
 
   // Function to render individual movie items
   function renderMovie(movie) {
+    const image_url = "https://image.tmdb.org/t/p/w780/" + movie.poster_path;
+    console.log("Now rendering: " + movie.original_title)
+
     return (
       <div key={movie.id} onClick={() => movieClickACB(movie)} className="mb-2 animate-fade-up animate-delay-200">
         {/* Display movie details */}
         <img
-          src={movie.picture}
-          alt={movie.title}
+          src={image_url}
+          alt={movie.original_title}
           className="rounded-lg shadow-lg"
           style={{ filter: "drop-shadow(0 0 0.75rem #D300FE)" }}
           width="190"
