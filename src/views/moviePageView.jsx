@@ -118,12 +118,12 @@ function MoviePageView(props) {
       <div className="flex-column w-1/2">
         {" "}
         {/* Rightmost column */}
-        <div className="h-16 pr-3 flex justify-end">
+        <div className="h-16 justify-end">
           {" "}
           {/* Upper right */}
           <button
             onClick={windowToLikes}
-            className="text-3xl font-thin font-sans"
+            className="text-3xl font-thin font-sans absolute right-11 top-7 lg:top-10"
             style={{ color: "#FF7272", textShadow: "0px 0px 4px #FF3131" }}
           >
             Your likes ♡
