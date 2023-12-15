@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import fire from "../images/fire.png";
 import logo from "../images/logo.png";
 import { useNavigate } from "react-router-dom";
-
-
+import React, { useEffect, useState } from "react";
+import DetailsView from "./detailsView.jsx";
 
 const likedMovies = [
   { // Example of movie object from API
@@ -16,17 +16,9 @@ const likedMovies = [
       name: "Kimberly Peirce"
     },
     cast: [{name: "Hilary Swank"}, {name: "Chloë Sevigny"}, {name: "Peter Sarsgaard"}],
-    genres: [{name: "Crime"}, {name: "Drama"}]
-  },
-  {
-    id: 226,
-    original_title: "Don't Don't Cry 2",
-    poster_path: "/nKXTgbruSrezC1tAeKB6Ri7cGkK.jpg",
-    director: {
-      name: "Kimberly Peirce"
-    },
-    cast: [{name: "Hilary Swank"}, {name: "Chloë Sevigny"}, {name: "Peter Sarsgaard"}],
-    genres: [{name: "Crime"}, {name: "Drama"}]
+    genres: [{name: "Crime"}, {name: "Drama"}],
+    overview: "Bla bla bla this is a sample overview. Jag föredrar bananer över äpplen förresten.",
+    video: "dQw4w9WgXcQ?si=7KskIbgdUbf3mNj7"
   }
 ];
 
@@ -34,10 +26,12 @@ const likedMovies = [
 function LikedMoviesView(props) {
   const numberOflikes = likedMovies.length;
 
-  function movieClickACB(movie) {
-    props.functionsnamnet(movie);
-    window.location.hash = "#/details";
+  function movieClickACB() {
+    // props.functionsnamnet(movie);
+    // window.location.hash = "#/details";
+    openModal();
   }
+
   let navigate = useNavigate();
 
   function windowToSwipe(evt) {
@@ -46,6 +40,21 @@ function LikedMoviesView(props) {
 
   function windowToStartPage(evt) {
     navigate("/login");
+  }
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  function openModal() {
+    // console.log("Opening details view for " + movie.original_title)
+    setIsModalOpen(true);
+  }
+
+  useEffect(() => {
+    console.log("Modal state after update: " + isModalOpen);
+  }, [isModalOpen]);
+
+  function closeModal() {
+    setIsModalOpen(false);
   }
 
   return (
@@ -102,7 +111,6 @@ function LikedMoviesView(props) {
   // Function to render individual movie items
   function renderMovie(movie) {
     const image_url = "https://image.tmdb.org/t/p/w780/" + movie.poster_path;
-    console.log("Now rendering: " + movie.original_title)
 
     return (
       <div key={movie.id} onClick={() => movieClickACB(movie)} className="mb-2 animate-fade-up animate-delay-200">
@@ -114,6 +122,22 @@ function LikedMoviesView(props) {
           style={{ filter: "drop-shadow(0 0 0.75rem #D300FE)" }}
           width="190"
         />
+
+        {isModalOpen && (
+          <div className="modal">
+            <div className="modal-content poster-edge-gradient">
+              <span
+                className="close-button font-bold font-sans"
+                onClick={closeModal}
+              >
+                &times;
+              </span>
+              <div className="min-w-[600px]">
+                <DetailsView movieData={movie}/>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
