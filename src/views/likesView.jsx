@@ -39,7 +39,7 @@ function LikedMoviesView(props) {
   }
 
   function windowToStartPage(evt) {
-    navigate("/login");
+    navigate("/startpage");
   }
 
   const [isModalOpen, setIsModalOpen] = useState(false);
