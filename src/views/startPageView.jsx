@@ -165,14 +165,14 @@ return (
 
 {/* SCROLL SECTION 1*/}
     <div className=" snap-start h-screen grid grid-rows-2 grid-cols-1 justify-items-center items-center block">
-    <nav class=" font-sans rounded-sm z-10 bg-[#150629cb] fixed  top-0 flex justify-between items-center w-full py-2 px-8">
+    <nav class=" font-sans rounded-sm z-10 bg-[#150629cb] fixed top-0 flex justify-between w-full py-2 px-8">
   <div class="md:static md:min-h-fit">
     <ul class="flex md:flex-row flex-col items-center md:gap-6">
       <li>
-      <button><a class="text-white hover:text-pink-300" onClick={windowSwipe} style={{textShadow: "0px 0px 4px #FFFFFF" }} href="#">Swipe</a></button>
+      <button><a class="text-white text-xs md:text-base hover:text-pink-300" onClick={windowSwipe} style={{textShadow: "0px 0px 4px #FFFFFF" }} >Swipe</a></button>
       </li>
       <li>
-        <button><a onClick={createSession} class="text-white hover:text-pink-300" style={{textShadow: "0px 0px 4px #FFFFFF" }} href="#">Create Session</a></button>
+        <button><a onClick={createSession} class="text-white hover:text-pink-300 text-xs md:text-base" style={{textShadow: "0px 0px 4px #FFFFFF" }}>Create Session</a></button>
       </li>
       <li>
       <button className="flex items-center">
@@ -187,11 +187,11 @@ return (
     placeholder="Enter Session ID"
     value={sessionId}
     onChange={(e) => setSessionIdState(e.target.value)}
-    className="flex border rounded px-8 text-gray-700 leading-normal focus:outline-none focus:shadow-outline"
+    className="flex border rounded md:px-8 text-gray-700 leading-normal focus:outline-none focus:shadow-outline text-xs md:text-base"
   />
   <img
     onClick={handleJoinSession}
-    className="w-8 hover:animate-wiggle ml-2"
+    className="w-6 md:w-8 hover:animate-wiggle ml-2"
     src={keys}
     alt="Keys"
   />
@@ -200,16 +200,18 @@ return (
     </ul>
   </div>
   <div class="">
-    <button onClick={windowLogin} class="bg-[#F4D0FD] px-4 py-1 text-[#2A1547] rounded-lg" style={{textShadow: "0px 0px 2px #812789" }}>
+    <button onClick={windowLogin} class="bg-[#F4D0FD] px-4 py-1 text-[#2A1547] rounded-lg text-xs md:text-base" style={{textShadow: "0px 0px 2px #812789" }}>
       Login
     </button>
   </div>
+
+  
 </nav>
-  <img className="pt-16 md:pt-96 w-2/3 shadow-inner animate-fade animate-delay-[400ms]" style={{ filter: 'drop-shadow(0 0 0.4rem #C772ED)' }} src={biglogo} alt="Logo icon" />
-  <h1 className="text-3xl flex col font-thin font-sans md:pt-56 tracking-wide justify-center text-center animate-fade-right animate-delay-[900ms]" style={{ color: "#FFFFFF", textShadow: "0px 0px 3px #FFFFFF" }}>
+  <img className="pt-44 md:pt-96 w-5/6 md:w-2/3 shadow-inner animate-fade animate-delay-[400ms]" style={{ filter: 'drop-shadow(0 0 0.4rem #C772ED)' }} src={biglogo} alt="Logo icon" />
+  <h1 className=" text-xl md:text-3xl flex col font-thin font-sans  md:pt-56 tracking-wide justify-center text-center animate-fade-right animate-delay-[900ms]" style={{ color: "#FFFFFF", textShadow: "0px 0px 3px #FFFFFF" }}>
     Swipe, Like, Save Time On Your Movie Night!
   </h1>
-  <img className="animate-bounce animate-duration-[2500ms] md:w-20 md:pb-12 md:pt-8" style={{ filter: 'drop-shadow(0 0 0.4rem #C772ED)' }} src={arrowdown} alt="Arrow down" />
+  <img className="animate-bounce animate-duration-[2500ms] w-20 md:pb-12 md:pt-8" style={{ filter: 'drop-shadow(0 0 0.4rem #C772ED)' }} src={arrowdown} alt="Arrow down" />
 </div>
 
 {/* SCROLL SECTION 2*/}
