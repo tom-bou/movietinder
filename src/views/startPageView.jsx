@@ -126,12 +126,12 @@ return (
 
 {/* SCROLL SECTION 1*/}
     <div className=" snap-start h-screen grid grid-rows-2 grid-cols-1 justify-items-center items-center block">
-    
+ 
   <img className="pt-16 md:pt-96 w-2/3 shadow-inner animate-fade animate-delay-[400ms]" style={{ filter: 'drop-shadow(0 0 0.4rem #C772ED)' }} src={biglogo} alt="Logo icon" />
   <h1 className="text-3xl flex col font-thin font-sans md:pt-56 tracking-wide justify-center text-center animate-fade-right animate-delay-[900ms]" style={{ color: "#FFFFFF", textShadow: "0px 0px 3px #FFFFFF" }}>
     Swipe, Like, Save Time On Your Movie Night!
   </h1>
-  <img className="animate-bounce animate-duration-[2500ms] md:w-20 md:pb-12 md:pt-8" style={{ filter: 'drop-shadow(0 0 0.4rem #C772ED)' }} src={arrowdown} alt="Arrow down" />
+  <img className="animate-bounce animate-duration-[2500ms] w-20 md:pb-12 md:pt-8" style={{ filter: 'drop-shadow(0 0 0.4rem #C772ED)' }} src={arrowdown} alt="Arrow down" />
 </div>
 
       {/* SCROLL SECTION 2*/}
