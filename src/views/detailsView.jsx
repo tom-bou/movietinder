@@ -1,13 +1,9 @@
 import "../style.css";
-import { useNavigate } from "react-router-dom";
-import dislikebutton from "../images/dislikebutton.png";
-import likebutton from "../images/likebutton.png";
 import trailer from "../images/trailer.png";
-import logo from "../images/logo.png";
 import React, { useState } from "react";
+import VideoModal from './videoModal';
 
-function DetailsView(props) {
-    
+export default function DetailsView(props) {
   var image_url =
     "https://image.tmdb.org/t/p/w780/" + props.movieData.poster_path;
 
@@ -40,10 +36,10 @@ function DetailsView(props) {
     <div
       className="flex bg-custom-purple relative animate-fade"
       style={{
-        background: "linear-gradient(to bottom, #150629 40%, #1C0A34, #5A2960)",
+        background: "transparent",
       }}
     >
-      <div className="p-1 flex-column w-1/2">
+      <div className="p-1 flex-column">
         {" "}
         {/* Leftmost column */}
         <div className="h-2/3 mt-10 flex items-center justify-center p-1">
@@ -53,7 +49,8 @@ function DetailsView(props) {
             {" "}
             {/* Div surrounding image element */}
             <img
-              className="max-h-full poster-edge-gradient shadow-lg" style={{ filter: "drop-shadow(0 0 1.5em #412EBB)" }}
+              className="max-h-full poster-edge-gradient shadow-lg"
+              style={{ filter: "drop-shadow(0 0 1.5em #412EBB)" }}
               src={image_url}
               alt="Movie poster"
             />
@@ -67,33 +64,19 @@ function DetailsView(props) {
               <img src={trailer} alt="Trailer" />
             </button>
             {isModalOpen && (
-              <div className="modal">
-                <div className="modal-content poster-edge-gradient">
-                  <span
-                    className="close-button font-bold font-sans"
-                    onClick={closeModal}
-                  >
-                    &times;
-                  </span>
-                  <iframe
-                    src={video_url}
-                    title="Video"
-                    width="560"
-                    height="315"
-                  ></iframe>
-                </div>
-              </div>
+              <VideoModal
+                isModalOpen={isModalOpen}
+                closeModal={closeModal}
+                video_url={video_url}
+              />
             )}
           </div>
         </div>
       </div>
-      <div className="flex-column w-1/2">
+      <div className="flex-column">
         {" "}
         {/* Rightmost column */}
-        <div className="h-16 pr-3 flex justify-end">
-          {" "}
-          {/* Upper right */}
-        </div>
+        <div className="h-16 pr-3 flex justify-end"> {/* Upper right */}</div>
         <div className="h-1/2 flex m-auto p-2.5 mr-10">
           {" "}
           {/* Middle right */}
@@ -166,5 +149,3 @@ function DetailsView(props) {
     </div>
   );
 }
-
-export default DetailsView;

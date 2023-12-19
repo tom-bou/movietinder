@@ -5,6 +5,8 @@ import likebutton from "../images/likebutton.png";
 import trailer from "../images/trailer.png";
 import logo from "../images/logo.png";
 import React, { useState } from "react";
+import 'flowbite';
+import VideoModal from './videoModal';
 
 function MoviePageView(props) {
   /*
@@ -75,7 +77,8 @@ function MoviePageView(props) {
             {" "}
             {/* Div surrounding image element */}
             <img
-              className="max-h-full poster-edge-gradient shadow-lg" style={{ filter: "drop-shadow(0 0 1.5em #412EBB)" }}
+              className="max-h-full poster-edge-gradient shadow-lg"
+              style={{ filter: "drop-shadow(0 0 1.5em #412EBB)" }}
               src={image_url}
               alt="Movie poster"
             />
@@ -92,22 +95,11 @@ function MoviePageView(props) {
               <img src={trailer} alt="Trailer" />
             </button>
             {isModalOpen && (
-              <div className="modal">
-                <div className="modal-content poster-edge-gradient">
-                  <span
-                    className="close-button font-bold font-sans"
-                    onClick={closeModal}
-                  >
-                    &times;
-                  </span>
-                  <iframe
-                    src={video_url}
-                    title="Video"
-                    width="560"
-                    height="315"
-                  ></iframe>
-                </div>
-              </div>
+              <VideoModal 
+              isModalOpen={isModalOpen} 
+              closeModal={closeModal} 
+              video_url={video_url} 
+            />
             )}
             <button onClick={likeACB} className="w-24 h-24 -mt-2">
               <img src={likebutton} alt="Like" />
@@ -198,11 +190,12 @@ function MoviePageView(props) {
           </p>
         </div>
       </div>
-      <button className="hidden xl:flex shadow-inner absolute left-2 top-7 w-40" style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }} alt="Logo icon">
-      <img
-        onClick={windowToStartPage}
-        src={logo}
-      />
+      <button
+        className="hidden xl:flex shadow-inner absolute left-2 top-7 w-40"
+        style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }}
+        alt="Logo icon"
+      >
+        <img onClick={windowToStartPage} src={logo} />
       </button>
     </div>
   );
