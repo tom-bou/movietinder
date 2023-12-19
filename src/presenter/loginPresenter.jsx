@@ -17,7 +17,7 @@ export default function LoginPresenter(props) {
             const {credentials, likedMovies} = await props.firebaseModel.signInWithEmailPassword(email, password);
             console.log(credentials)
             dispatch(loginUser({email: credentials.user.email, userId: credentials.user.uid, likedMovies: likedMovies }));
-            navigate('/groupCreation');
+            navigate('/startpage');
             console.log("Logged in with email");
           } catch (err) {
             setError(err.message);
@@ -28,7 +28,7 @@ export default function LoginPresenter(props) {
           try {
             const {credentials, likedMovies} = await props.firebaseModel.signInWithGoogle();
             dispatch(loginUser({email: credentials.user.email, userId: credentials.user.uid, likedMovies: likedMovies }));
-            navigate('/groupCreation');
+            navigate('/startpage');
             console.log("Logged in with google");
             return credentials;
           } catch (err){

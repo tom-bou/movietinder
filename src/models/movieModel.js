@@ -1,8 +1,7 @@
 import { resolvePromise } from "./resolvePromise.js";
 import { getMovieDetails, getMovieVideo } from "./movieSource.js";
-import { get } from "mobx";
 
-export default {
+const movieModel = {
   currentMoviePromiseState: {},
 
   doRandomMovieSearch(searchParams) {
@@ -40,7 +39,7 @@ export default {
   }
   // Funktion för gilla knappen. Filmen vi är inne på ska sparas för användaren och läggas i likedmovies
 };
-
+export default movieModel;
 //Knappar - Corre
 //Visa informationen för varje film
 //Visa bibilioteket med gillade filmer

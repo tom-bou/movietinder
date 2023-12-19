@@ -43,7 +43,7 @@ We plan on adding a feature where the user can connect with their friends to a j
 │  │  ├─ sessionModel.js
 │  │  └─ userModel.js
 │  ├─ presenter
-│  │  ├─ groupCreationPresenter.jsx
+│  │  ├─ startPagePresenter.jsx
 │  │  ├─ likesPresenter.jsx
 │  │  ├─ loginPresenter.jsx
 │  │  ├─ moviePagePresenter.jsx  # Makes sure we have received the data from the API before trying to render the view.
@@ -56,7 +56,7 @@ We plan on adding a feature where the user can connect with their friends to a j
 │  ├─ userSlice.js
 │  └─ views
 │     ├─ errorModal.jsx
-│     ├─ groupCreationView.jsx
+│     ├─ startPageView.jsx
 │     ├─ likesView.jsx
 │     ├─ loginView.jsx
 │     ├─ moviePageView.jsx  # Presents the data from the API to the user in a neat way.

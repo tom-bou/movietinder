@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import RegisterView from "../views/registerView";
 import ErrorModal from "../views/errorModal"; // Import the ErrorModal
-import { observer } from "mobx-react-lite";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../userSlice";
 
-const RegisterPresenter = observer(({ firebaseModel }) => {
+const RegisterPresenter = ({ firebaseModel }) => {
     const [error, setError] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
+    const dispatch = useDispatch();
+
     const onRegister = async (email, password) => {
         try {
-            await firebaseModel.registerUser(email, password);
-            // Handle successful registration here
+            const credentials = await firebaseModel.registerUser(email, password);
+            dispatch(loginUser({email: credentials.user.email, userId: credentials.user.uid, likedMovies: [] }));
             setError(null);
             setShowModal(false);
         } catch (err) {
@@ -36,6 +39,6 @@ const RegisterPresenter = observer(({ firebaseModel }) => {
             {showModal && <ErrorModal message={error} onClose={handleCloseModal} />}
         </>
     );
-});
+};
 
 export default RegisterPresenter;

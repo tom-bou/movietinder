@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import { useSelector, useDispatch } from 'react-redux';
 import moviefilm from "../images/moviefilm.png"
 import popcorn from "../images/popcorn.png"
 import logo from "../images/logo.png"
 import glasses from "../images/glasses.png"
+import { useNavigate } from "react-router-dom";
 
 
 function LoginView(props) {
@@ -12,6 +13,13 @@ function LoginView(props) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
+const dispatch = useDispatch();
+  let navigate = useNavigate();
+
+function windowToStartPage(evt) {
+  navigate("/");
+  }
+  
   const onEmailLogin = async (email, password) => {
     try {
         await props.onEmailLogin(email, password);
@@ -29,7 +37,7 @@ function LoginView(props) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen " style={{ background: 'linear-gradient(to bottom, #150629 60%, #1C0A34, #5A2960)' }}>
+    <div className="flex flex-col items-center justify-center min-h-screen " style={{ background: 'linear-gradient(to bottom, #150629 40%, #1C0A34, #5A2960)' }}>
       <div className="p-6 rounded-lg shadow-lg bg-white max-w-md w-full border-2 border-violet-800 bg-gradient-to-br from-pink-300 via-violet-400 to-violet-500 z-10">
         <h1 className="text-xl font-semibold text-center text-white mb-4 tracking-wider">LOGIN</h1>
         <input
@@ -70,7 +78,7 @@ function LoginView(props) {
      <div className="bg-gradient-to-br from-pink-900 via-violet-700 blur-md to-blue-900 rounded-lg absolute top-15 left-15 right-15 bottom-15 z-0" style={{ width: '460px', height:'350px' }}></div>
      <img src={moviefilm} alt="Movie icon" class="absolute left-20 bottom-60 w-60 animate-fade-right animate-delay-[800ms]"/>
      <img src={popcorn} alt="Popcorn icon" class="absolute right-20 bottom-20 w-52 animate-fade-left animate-delay-[1200ms]" />
-     <img src={logo} alt="Logo icon" class="shadow-inner absolute left-4 top-4 w-36"  style={{ filter: 'drop-shadow(0 0 0.2rem #C772ED)' }} />
+     <button><img src={logo} onClick={windowToStartPage} alt="Logo icon" class="shadow-inner absolute left-2 top-7 w-40"  style={{ filter: 'drop-shadow(0 0 0.2rem #C772ED)' }} /></button>
      <img src={glasses} alt="Glasses icon" class="absolute right-60 top-20 w-40 animate-fade-left animate-delay-[400ms]" />
 
     </div>

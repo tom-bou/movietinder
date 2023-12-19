@@ -1,34 +1,29 @@
 import firebaseConfig from "../firebaseConfig.js";
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { getFirestore, collection, addDoc, getDocs, doc, setDoc, deleteDoc, where, getDoc, onSnapshot, updateDoc, arrayUnion } from 'firebase/firestore';
 
-class Firebase {
-  constructor() {
-    const app = initializeApp(firebaseConfig);
-    this.auth = getAuth(app);
-    this.firestore = getFirestore(app);
-    this.database = getDatabase(app);
-  }
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const firestore = getFirestore(app);
 
+const Firebase = {
   async createUserProfile(userId, additionalData) {
-    const userRef = doc(this.firestore, 'users', userId);
+    const userRef = doc(firestore, 'users', userId);
     await setDoc(userRef, additionalData, { merge: true });
-  }
-  
+  },
 
   async registerUser(email, password) {
-    const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     await this.createUserProfile(userCredential.user.uid, {
-        email: userCredential.user.email,
-        likedMovies: []
-      })
+      email: userCredential.user.email,
+      likedMovies: []
+    });
     return userCredential;
-  }
+  },
 
   async leaveSession(sessionId, userId) {
-    const sessionRef = doc(this.firestore, 'sessions', sessionId);
+    const sessionRef = doc(firestore, 'sessions', sessionId);
     const sessionDoc = await getDoc(sessionRef);
 
     if (!sessionDoc.exists()) {
@@ -49,62 +44,68 @@ class Firebase {
       await setDoc(sessionRef, sessionData);
       console.log('Left the session:', sessionId);
     }
-  }
-  
+  },
+
   async signInWithEmailPassword(email, password) {
-    const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
-    const likedMovies = await this.getLikedMovies(userCredential.user.uid);
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
     await this.createUserProfile(userCredential.user.uid, {
-        email: userCredential.user.email,
-        likedMovies: []
-      })
-    return {credentials: userCredential, likedMovies: likedMovies};
-  }
+      email: userCredential.user.email,
+      likedMovies: []
+    });
+    return userCredential;
+  },
 
   async signInWithGoogle() {
     const provider = new GoogleAuthProvider();
-    const userCredential = await signInWithPopup(this.auth, provider);
-  
+    const userCredential = await signInWithPopup(auth, provider);
     await this.createUserProfile(userCredential.user.uid, {
-        email: userCredential.user.email,
-        likedMovies: []
-      })
-    const likedMovies = await this.getLikedMovies(userCredential.user.uid);
-    return {credentials: userCredential, likedMovies: likedMovies};
-  }
-  
+      email: userCredential.user.email,
+      likedMovies: []
+    });
+    return userCredential;
+  },
+
+  async logoutUser () {
+    try {
+      await signOut(auth);
+      console.log("User successfully logged out");
+      // Additional logic after successful logout (e.g., redirect to login page)
+    } catch (error) {
+      console.error("Error logging out:", error);
+      // Handle errors here, such as displaying a notification to the user
+    }
+  },
 
   getCurrentUser() {
-    return this.auth.currentUser;
-  }
+    return auth.currentUser;
+  },
 
   async addDocumentToCollection(collectionName, data) {
-    const collectionRef = collection(this.firestore, collectionName);
+    const collectionRef = collection(firestore, collectionName);
     return addDoc(collectionRef, data);
-  }
+  },
 
   async saveLikedMovie(userId, movieId) {
-    const userRef = doc(this.firestore, 'users', userId);
+    const userRef = doc(firestore, 'users', userId);
     const userDoc = await getDoc(userRef);
     if (userDoc.exists()) {
       const likedMovies = userDoc.data().likedMovies || [];
       likedMovies.push(movieId);
       await setDoc(userRef, { likedMovies }, { merge: true });
     }
-  }
+  },
 
   async getUserDetails(userId) {
-    const userRef = doc(this.firestore, 'users', userId);
+    const userRef = doc(firestore, 'users', userId);
     const userDoc = await getDoc(userRef);
     if (userDoc.exists()) {
       return userDoc.data();
     }
     return null; // or throw an error
-  }
-
+  },
 
   async removeLikedMovie(userId, movieId) {
-    const userRef = doc(this.firestore, 'users', userId);
+    const userRef = doc(firestore, 'users', userId);
     const userDoc = await getDoc(userRef);
     if (userDoc.exists()) {
       const likedMovies = userDoc.data().likedMovies || [];
@@ -114,59 +115,61 @@ class Firebase {
         await setDoc(userRef, { likedMovies }, { merge: true });
       }
     }
-  }
+  },
 
   async getLikedMovies(userId) {
-    const userRef = doc(this.firestore, 'users', userId);
+    const userRef = doc(firestore, 'users', userId);
     const userDoc = await getDoc(userRef);
     if (userDoc.exists()) {
       return userDoc.data().likedMovies || [];
     }
     return [];
-}
-async createSession(userIds) {
-    const sessionRef = await addDoc(collection(this.firestore, 'sessions'), {
+  },
+
+  async createSession(userIds) {
+    const sessionRef = await addDoc(collection(firestore, 'sessions'), {
       members: userIds,
       likes: userIds.reduce((acc, userId) => ({ ...acc, [userId]: [] }), {})
     });
     return sessionRef.id;
-  }
+  },
   
   async joinSession(sessionId, userId) {
-    const sessionRef = doc(this.firestore, 'sessions', sessionId);
+    const sessionRef = doc(firestore, 'sessions', sessionId);
     await updateDoc(sessionRef, {
       members: arrayUnion(userId),
       [`likes.${userId}`]: []
     });
-  }
+  },
 
   async getEmailFromUserId(userId) {
-    const userRef = doc(this.firestore, 'users', userId);
+    const userRef = doc(firestore, 'users', userId);
     const userDoc = await getDoc(userRef);
     if (userDoc.exists()) {
       return userDoc.data().email;
     }
     return null;
-  }
+  },
 
   async getSessionMembers(sessionId) {
-    const sessionRef = doc(this.firestore, 'sessions', sessionId);
+    const sessionRef = doc(firestore, 'sessions', sessionId);
     const sessionDoc = await getDoc(sessionRef);
     if (sessionDoc.exists()) {
-      const sessionData = sessionDoc.data();
-      return sessionData.members; // Or the appropriate logic to return members
+      return sessionDoc.data().members;
     }
     return []; // Return an empty array if session doesn't exist or no members found
-  }
+  },
+  
   onSessionChanged(sessionId, callback) {
-    const sessionRef = doc(this.firestore, 'sessions', sessionId);
+    const sessionRef = doc(firestore, 'sessions', sessionId);
     return onSnapshot(sessionRef, (doc) => {
       if (doc.exists()) {
         callback(doc.data());
       }
     });
   }
-}
-
+};
 
 export default Firebase;
+
+export { auth, firestore };
