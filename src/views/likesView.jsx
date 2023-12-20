@@ -5,7 +5,7 @@ import fire from "../images/fire.png";
 import logo from "../images/logo.png";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import DetailModal from './detailModal';
+import DetailModal from "./detailModal";
 
 const likedMovies = [
   {
@@ -26,17 +26,29 @@ const likedMovies = [
       "Bla bla bla this is a sample overview. Jag föredrar bananer över äpplen förresten.",
     video: "dQw4w9WgXcQ?si=7KskIbgdUbf3mNj7",
   },
+  {
+    // Example of movie object from API
+    id: 230,
+    original_title: "DonasdasdCry",
+    poster_path: "/nKXTgbruSrezC1tAeKB6Ri7cGkK.jpg",
+    director: {
+      name: "Kimberly Peirce",
+    },
+    cast: [
+      { name: "Hilary Swank" },
+      { name: "Chloë Sevigny" },
+      { name: "Peter Sarsgaard" },
+    ],
+    genres: [{ name: "Crime" }, { name: "Drama" }],
+    overview:
+      "Bla bla bla this is a sample overview. Jag föredrar bananer över äpplen förresten.",
+    video: "dQw4w9WgXcQ?si=7KskIbgdUbf3mNj7",
+  },
 ];
 
 //Displaying liked movies and allowing removal
 function LikedMoviesView(props) {
   const numberOflikes = likedMovies.length;
-
-  function movieClickACB() {
-    // props.functionsnamnet(movie);
-    // window.location.hash = "#/details";
-    openModal();
-  }
 
   let navigate = useNavigate();
 
@@ -45,34 +57,32 @@ function LikedMoviesView(props) {
   }
 
   function windowToStartPage(evt) {
-    navigate("/");
+    navigate("/startpage");
   }
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
-  function openModal() {
-    // console.log("Opening details view for " + movie.original_title)
+  function openModal(movie) {
+    setSelectedMovie(movie);
     setIsModalOpen(true);
   }
 
-  useEffect(() => {
-    console.log("Modal state after update: " + isModalOpen);
-  }, [isModalOpen]);
+  useEffect(() => {}, [isModalOpen]);
 
   function closeModal() {
-    console.log(isModalOpen);
     setIsModalOpen(false);
-    console.log(isModalOpen);
+    setSelectedMovie(null);
   }
 
   return (
     <div
-      className="flex flex-col items-center justify-center min-h-screen"
+      className="flex flex-col items-center h-screen"
       style={{
         background: "linear-gradient(to bottom, #150629 40%, #1C0A34, #5A2960)",
       }}
     >
-      <button class="shadow-inner absolute left-2 top-7 w-40">
+      <button className="shadow-inner absolute left-2 top-7 w-40">
         <img
           onClick={windowToStartPage}
           src={logo}
@@ -80,35 +90,37 @@ function LikedMoviesView(props) {
           style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }}
         />
       </button>
-      <div className="flex flex-col sm:-mt-40">
+      <div className="text-center">
         <h1
-          className="text-3xl font-thin font-sans"
+          className="text-3xl font-thin font-sans mt-8"
           style={{
+            marginLeft: "-40px",
             color: "#FF7272",
             textShadow: "0px 0px 4px #FF3131",
             dispay: "inline-block",
           }}
         >
           Your Likes
+          <div className="inline">
+            {" "}
+            <img
+              src={likebutton}
+              alt="Heart icon"
+              className="absolute w-9 ml-2 inline"
+            />
+          </div>
         </h1>
-        <div className="flex flex-row justify-center">
-          <h2
-            className="text-3xl font-thin font-sans pt-1"
-            style={{
-              color: "#FF7272",
-              textShadow: "0px 0px 4px #FF3131",
-              dispay: "inline-block",
-            }}
-          >
-            {numberOflikes}
-          </h2>
-          <img
-            src={likebutton}
-            alt="Heart icon"
-            className="w-11"
-            style={{ dispay: "inline-block" }}
-          />
-        </div>
+
+        <h2
+          className="text-3xl font-thin font-sans mt-1"
+          style={{
+            color: "#FF7272",
+            textShadow: "0px 0px 4px #FF3131",
+            dispay: "inline-block",
+          }}
+        >
+          {numberOflikes}
+        </h2>
       </div>
       <span className="spanButton" onClick={windowToSwipe}>
         <h1
@@ -124,9 +136,16 @@ function LikedMoviesView(props) {
         />
       </span>
 
-      <div className="flex flex-wrap justify-start gap-20 m-20">
+      <div className="flex flex-wrap justify-start gap-20 m-20 justify-center place-content-center">
         {likedMovies.map((movie) => renderMovie(movie))}
       </div>
+      {isModalOpen && (
+        <DetailModal
+          isModalOpen={isModalOpen}
+          closeModal={closeModal}
+          movie={selectedMovie}
+        />
+      )}
     </div>
   );
 
@@ -138,7 +157,7 @@ function LikedMoviesView(props) {
       <div key={movie.id} className="mb-2 animate-fade-up animate-delay-200">
         {/* Display movie details */}
         <img
-          onClick={() => movieClickACB(movie)}
+          onClick={() => openModal(movie)}
           src={image_url}
           alt={movie.original_title}
           className="rounded-lg shadow-lg"
@@ -148,14 +167,6 @@ function LikedMoviesView(props) {
           }}
           width="190"
         />
-
-        {isModalOpen && (
-          <DetailModal
-            isModalOpen={isModalOpen}
-            closeModal={closeModal}
-            movie={movie}
-          />
-        )}
       </div>
     );
   }
