@@ -80,32 +80,36 @@ function LikedMoviesView(props) {
           style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }}
         />
       </button>
-      <h1
-        className="text-3xl font-thin font-sans mt-8"
-        style={{
-          color: "#FF7272",
-          textShadow: "0px 0px 4px #FF3131",
-          dispay: "inline-block",
-        }}
-      >
-        Your Likes
-      </h1>
-      <h2
-        className="text-3xl font-thin font-sans mt-1 mr-10"
-        style={{
-          color: "#FF7272",
-          textShadow: "0px 0px 4px #FF3131",
-          dispay: "inline-block",
-        }}
-      >
-        {numberOflikes}
-      </h2>
-      <img
-        src={likebutton}
-        alt="Heart icon"
-        className="absolute top-12 w-11 mt-5 ml-7"
-        style={{ dispay: "inline-block" }}
-      />
+      <div className="flex flex-col sm:-mt-40">
+        <h1
+          className="text-3xl font-thin font-sans"
+          style={{
+            color: "#FF7272",
+            textShadow: "0px 0px 4px #FF3131",
+            dispay: "inline-block",
+          }}
+        >
+          Your Likes
+        </h1>
+        <div className="flex flex-row justify-center">
+          <h2
+            className="text-3xl font-thin font-sans pt-1"
+            style={{
+              color: "#FF7272",
+              textShadow: "0px 0px 4px #FF3131",
+              dispay: "inline-block",
+            }}
+          >
+            {numberOflikes}
+          </h2>
+          <img
+            src={likebutton}
+            alt="Heart icon"
+            className="w-11"
+            style={{ dispay: "inline-block" }}
+          />
+        </div>
+      </div>
       <span className="spanButton" onClick={windowToSwipe}>
         <h1
           className="text-3xl font-thin font-sans absolute top-5 right-32 w-11 mt-5"
