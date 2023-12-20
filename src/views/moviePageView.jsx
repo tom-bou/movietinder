@@ -37,7 +37,7 @@ function MoviePageView(props) {
   }
 
   function windowToStartPage(evt) {
-    navigate("/startpage");
+    navigate("/");
   }
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,7 +69,7 @@ function MoviePageView(props) {
 
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       {/* First column */}
-      <div className="lg:col-span-1 h-screen flex flex-col justify-center items-center">
+      <div className="lg:col-span-1 h-screen flex flex-col justify-center items-center md:ml-28">
       <img
               className="h-2/3 max-w-full poster-edge-gradient shadow-lg"
               style={{ filter: "drop-shadow(0 0 1.5em #412EBB)" }}
@@ -200,7 +200,7 @@ function MoviePageView(props) {
     
 </div>
 <button 
-        className=" xl:flex shadow-inner absolute md:left-2 top-2 md:top-7 w-16"
+        className="xl:flex shadow-inner absolute left-2 top-2 sm:top-7 w-16 md:w-40"
         style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }}
         alt="Logo icon"
       >
@@ -208,11 +208,11 @@ function MoviePageView(props) {
       </button>
       <button
       onClick={windowToLikes}
-      className="text-3xl font-thin font-sans absolute right-2 md:right-11 top-1 md:top-7 lg:top-10"
+      className="text-3xl font-thin font-sans absolute right-2 md:right-11 top-2 sm:top-7 lg:top-10"
       style={{ color: "#FF7272", textShadow: "0px 0px 4px #FF3131" }}
     >
       {/* Hidden on smaller screens */}
-      <span className="hidden lg:inline">Your likes</span>
+      <span className="hidden md:inline">Your likes</span>
       {/* Heart icon */}
       <span> ♡</span>
     </button>
