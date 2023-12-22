@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+
 import likebutton from "../images/likebutton.png";
 import fire from "../images/fire.png";
 import logo from "../images/logo.png";
 import DetailModal from "./detailModal";
-import { toJS } from "mobx";
+
 
 function LikedMoviesView(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -160,8 +159,10 @@ function LikedMoviesView(props) {
             {props.sessionLikes.length}
           </h2>
 
+
           <div className="flex flex-wrap justify-start gap-20 m-20">
             {props.sessionLikes.map((movie) => renderMovie(movie))}
+
           </div>
         </div>
 
