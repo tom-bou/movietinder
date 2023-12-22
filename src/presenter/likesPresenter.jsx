@@ -2,8 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { useState } from "react";
 import LikedMoviesView from '../views/likesView';
 
-export default
-observer( 
+export default 
     function LikesPresenter(props) {
     
     return (
@@ -13,6 +12,6 @@ observer(
         );
 
 
-});
+};
 
 
