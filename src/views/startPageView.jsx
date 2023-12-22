@@ -97,7 +97,7 @@ function StartPageView(props) {
               </ul>
             </div>
           )}
-          <img class="mt-10" src={filmcamera} />
+          <img className="mt-10" src={filmcamera} />
           <button>
             <h1
               onClick={windowSwipe}
@@ -143,7 +143,7 @@ return (
       >
         <div className="flex flex-col sm:flex-row justify-center items-start w-full">
           <div className=" w-full sm:w-1/2 sm:w-auto sm:flex-1 flex justify-left items-left flex-col">
-            <img class=" justify-center items-center" src={fourpeople} />
+            <img className=" justify-center items-center" src={fourpeople} />
           </div>
           <div className=" pt-24 pr-12 p-4 w-full sm:w-1/2 sm:w-auto sm:flex-1 flex justify-center items-center flex-col">
             <h1
@@ -153,7 +153,7 @@ return (
               Who are we?
             </h1>
             <p
-              class=" text-2xl px-10 pt-8 font-thin font-sans justify-center text-center"
+              className=" text-2xl px-10 pt-8 font-thin font-sans justify-center text-center"
               style={{ color: "#2A1547" }}
             >
               Behind this project stands our team consisting of four people;
@@ -180,19 +180,19 @@ return (
             >
               What is Movie Tinder?
             </h1>
-            <p class=" text-2xl px-10 pt-8 font-thin font-sans text-white justify-center text-center">
+            <p className=" text-2xl px-10 pt-8 font-thin font-sans text-white justify-center text-center">
               Life's too short to spend it searching for movies. Allow us to
               introduce Movie Tinder – where your next favorite film is just a
               swipe away! Our app streamlines the process, offering the most
               important info and trailers for a quick informed decision.
             </p>
-            <p class=" text-2xl px-10 pt-8 font-thin font-sans text-white justify-center text-center">
+            <p className=" text-2xl px-10 pt-8 font-thin font-sans text-white justify-center text-center">
               Simply hit 'Like' on what catches your eye to save it for later.
               Spend less time deciding and more time enjoying!{" "}
             </p>
           </div>
           <div className=" p-4 w-full sm:w-1/2 sm:w-auto sm:flex-1 flex flex-col justify-center items-center">
-            <img class=" justify-center" src={watchingtv} />
+            <img className=" justify-center" src={watchingtv} />
           </div>
         </div>
       </div>
@@ -217,7 +217,7 @@ return (
                 onClick={createSession}
               />
             </button>
-            <p class="text-xl px-10 py-4 font-thin font-sans text-white justify-center text-center">
+            <p className="text-xl px-10 py-4 font-thin font-sans text-white justify-center text-center">
               Say goodbye to the endless debate over movie choices! Introducing
               Group Session - the ultimate solution for smooth movie picks.
               Discover films that match everyone's taste.
@@ -241,7 +241,7 @@ return (
                 alt="Swipe Finger"
               />
             </button>
-            <p class="text-xl px-10 py-10 font-thin font-sans text-white justify-center text-center">
+            <p className="text-xl px-10 py-10 font-thin font-sans text-white justify-center text-center">
               Discover your next must-watch movies! With Movie Tinder you can
               like and save the movies you want to see for later. So what are
               you waiting for? Start swiping!
@@ -271,7 +271,7 @@ return (
               src={keys}
               alt="Keys"
             />
-            <p class="text-xl px-10 py-5 pb-24 font-thin font-sans text-white justify-center text-center">
+            <p className="text-xl px-10 py-5 pb-24 font-thin font-sans text-white justify-center text-center">
               Have friends who have already set up a group session? Ask them to
               share their key ID so you can join and together start exploring
               movies to watch!

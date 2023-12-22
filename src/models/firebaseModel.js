@@ -1,7 +1,7 @@
 import firebaseConfig from "../firebaseConfig.js";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
-import { getFirestore, collection, addDoc, getDocs, doc, setDoc, deleteDoc, where, getDoc, onSnapshot, updateDoc, arrayUnion } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, setDoc, deleteDoc, getDoc, onSnapshot, updateDoc, arrayUnion } from 'firebase/firestore';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -47,22 +47,34 @@ const Firebase = {
   },
 
   async signInWithEmailPassword(email, password) {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    await this.createUserProfile(userCredential.user.uid, {
-      email: userCredential.user.email,
-      likedMovies: []
-    });
-    return userCredential;
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      await this.createUserProfile(userCredential.user.uid, {
+        email: userCredential.user.email,
+        likedMovies: []
+      });
+      const likedMovies = await this.getLikedMovies(userCredential.user.uid);
+      return {userCredential, likedMovies};
+    } catch (error) {
+      console.error('Error signing in with email and password:', error);
+      throw error;
+    }
   },
 
   async signInWithGoogle() {
-    const provider = new GoogleAuthProvider();
-    const userCredential = await signInWithPopup(auth, provider);
-    await this.createUserProfile(userCredential.user.uid, {
-      email: userCredential.user.email,
-      likedMovies: []
-    });
-    return userCredential;
+    try {
+      const provider = new GoogleAuthProvider();
+      const userCredential = await signInWithPopup(auth, provider);
+      await this.createUserProfile(userCredential.user.uid, {
+        email: userCredential.user.email,
+        likedMovies: []
+      });
+      const likedMovies = await this.getLikedMovies(userCredential.user.uid);
+      return {userCredential, likedMovies};
+    } catch (error) {
+      console.error('Error signing in with Google:', error);
+      throw error;
+    }
   },
 
   async logoutUser () {
@@ -171,5 +183,3 @@ const Firebase = {
 };
 
 export default Firebase;
-
-export { auth, firestore };

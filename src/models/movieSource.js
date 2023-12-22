@@ -2,7 +2,10 @@ import { BASE_URL, API_KEY, ACCESS_TOKEN } from "../TMDBApiConfig.js";
 
 export function getMovieDetails(movieId) {
   function myFetchACB(response) {
-    if (!response.ok) throw new Error("fetch failed");
+    if (!response.ok) {
+      response.text().then(text => console.error(`Fetch failed: ${text}`));
+      throw new Error(`Fetch failed with status ${response.status}`);
+    }
     return response.json();
   }
 
@@ -22,7 +25,7 @@ export function getMovieDetails(movieId) {
     function creditsToCastChangeACB(creditsResponse) {
       movieDetails.cast = creditsResponse.cast;
       movieDetails.director = creditsResponse.crew.find((crewMember) => crewMember.job === "Director");
-      console.log(movieDetails.director)
+      //console.log(movieDetails.director)
       return movieDetails;
     }
     return getMovieCredits(movieId).then(creditsToCastChangeACB);

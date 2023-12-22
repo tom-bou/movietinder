@@ -14,10 +14,10 @@ export default function LoginPresenter(props) {
 
         const onEmailLogin = async (email, password) => {
           try {
-            const {credentials, likedMovies} = await props.firebaseModel.signInWithEmailPassword(email, password);
-            console.log(credentials)
-            dispatch(loginUser({email: credentials.user.email, userId: credentials.user.uid, likedMovies: likedMovies }));
-            navigate('/startpage');
+            const {userCredential, likedMovies} = await props.firebaseModel.signInWithEmailPassword(email, password);
+            console.log(userCredential);
+            dispatch(loginUser({email: userCredential.user.email, userId: userCredential.user.uid, likedMovies: likedMovies }));
+            navigate('/');
             console.log("Logged in with email");
           } catch (err) {
             setError(err.message);
@@ -26,11 +26,11 @@ export default function LoginPresenter(props) {
         };
         const onGoogleLogin = async () => {
           try {
-            const {credentials, likedMovies} = await props.firebaseModel.signInWithGoogle();
-            dispatch(loginUser({email: credentials.user.email, userId: credentials.user.uid, likedMovies: likedMovies }));
-            navigate('/startpage');
+            const {userCredential, likedMovies} = await props.firebaseModel.signInWithGoogle();
+            dispatch(loginUser({email: userCredential.user.email, userId: userCredential.user.uid, likedMovies: likedMovies }));
+            navigate('/');
             console.log("Logged in with google");
-            return credentials;
+            return userCredential;
           } catch (err){
             setError(err.message);
             console.log(error)

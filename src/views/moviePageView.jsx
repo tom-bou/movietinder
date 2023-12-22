@@ -37,7 +37,7 @@ function MoviePageView(props) {
   }
 
   function windowToStartPage(evt) {
-    navigate("/startpage");
+    navigate("/");
   }
 
   const [isModalOpen, setIsModalOpen] = useState(false);

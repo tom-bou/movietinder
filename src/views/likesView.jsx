@@ -1,68 +1,76 @@
-import { removeMovieFromLiked } from "../presenter/likesPresenter.jsx";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import likebutton from "../images/likebutton.png";
-import { useSelector, useDispatch } from "react-redux";
 import fire from "../images/fire.png";
 import logo from "../images/logo.png";
-import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
 import DetailModal from './detailModal';
+import { toJS } from 'mobx';
 
-const likedMovies = [
-  {
-    // Example of movie object from API
-    id: 226,
-    original_title: "Don't Don't Cry",
-    poster_path: "/nKXTgbruSrezC1tAeKB6Ri7cGkK.jpg",
-    director: {
-      name: "Kimberly Peirce",
-    },
-    cast: [
-      { name: "Hilary Swank" },
-      { name: "Chloë Sevigny" },
-      { name: "Peter Sarsgaard" },
-    ],
-    genres: [{ name: "Crime" }, { name: "Drama" }],
-    overview:
-      "Bla bla bla this is a sample overview. Jag föredrar bananer över äpplen förresten.",
-    video: "dQw4w9WgXcQ?si=7KskIbgdUbf3mNj7",
-  },
-];
-
-//Displaying liked movies and allowing removal
 function LikedMoviesView(props) {
-  const numberOflikes = likedMovies.length;
-
-  function movieClickACB() {
-    // props.functionsnamnet(movie);
-    // window.location.hash = "#/details";
-    openModal();
-  }
-
+  const likedMoviesIds = useSelector((state) => state.user.details.likedMovies);
+  const [likedMovies, setLikedMovies] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   let navigate = useNavigate();
 
-  function windowToSwipe(evt) {
+  // Navigate functions
+  function windowToSwipe() {
     navigate("/moviepage");
   }
 
-  function windowToStartPage(evt) {
+  function windowToStartPage() {
     navigate("/startpage");
   }
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+  // Modal control functions
   function openModal() {
-    // console.log("Opening details view for " + movie.original_title)
     setIsModalOpen(true);
   }
 
-  useEffect(() => {
-    console.log("Modal state after update: " + isModalOpen);
-  }, [isModalOpen]);
-
   function closeModal() {
-    console.log(isModalOpen);
     setIsModalOpen(false);
-    console.log(isModalOpen);
+  }
+
+  // Fetching liked movies
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const promises = likedMoviesIds.map((movieId) => props.model.doMovieSearch(movieId));
+        let movies = await Promise.all(promises.map(result => result.promise));
+        movies = movies.map(movie => toJS(movie));
+        console.log(movies);
+        setLikedMovies(movies);
+      } catch (error) {
+        console.error("Failed to fetch movies:", error);
+      }
+    };
+
+    fetchMovies();
+  }, [likedMoviesIds, props.model]);
+
+  // Function to render individual movie items
+  function renderMovie(movie) {
+    const image_url = "https://image.tmdb.org/t/p/w780/" + movie.poster_path;
+    return (
+      <div key={movie.id} className="mb-2 animate-fade-up animate-delay-200">
+        <img
+          onClick={() => openModal()}
+          src={image_url}
+          alt={movie.original_title}
+          className="rounded-lg shadow-lg"
+          style={{ filter: "drop-shadow(0 0 0.75rem #D300FE)", cursor: "pointer" }}
+          width="190"
+        />
+
+        {isModalOpen && (
+          <DetailModal
+            isModalOpen={isModalOpen}
+            closeModal={closeModal}
+            movie={movie}
+          />
+        )}
+      </div>
+    );
   }
 
   return (
@@ -72,9 +80,8 @@ function LikedMoviesView(props) {
         background: "linear-gradient(to bottom, #150629 40%, #1C0A34, #5A2960)",
       }}
     >
-      <button class="shadow-inner absolute left-2 top-7 w-40">
+      <button className="shadow-inner absolute left-2 top-7 w-40" onClick={windowToStartPage}>
         <img
-          onClick={windowToStartPage}
           src={logo}
           alt="Logo icon"
           style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }}
@@ -85,7 +92,7 @@ function LikedMoviesView(props) {
         style={{
           color: "#FF7272",
           textShadow: "0px 0px 4px #FF3131",
-          dispay: "inline-block",
+          display: "inline-block",
         }}
       >
         Your Likes
@@ -95,16 +102,16 @@ function LikedMoviesView(props) {
         style={{
           color: "#FF7272",
           textShadow: "0px 0px 4px #FF3131",
-          dispay: "inline-block",
+          display: "inline-block",
         }}
       >
-        {numberOflikes}
+        {likedMovies.length}
       </h2>
       <img
         src={likebutton}
         alt="Heart icon"
         className="absolute top-12 w-11 mt-5 ml-7"
-        style={{ dispay: "inline-block" }}
+        style={{ display: "inline-block" }}
       />
       <span className="spanButton" onClick={windowToSwipe}>
         <h1
@@ -125,36 +132,6 @@ function LikedMoviesView(props) {
       </div>
     </div>
   );
-
-  // Function to render individual movie items
-  function renderMovie(movie) {
-    const image_url = "https://image.tmdb.org/t/p/w780/" + movie.poster_path;
-
-    return (
-      <div key={movie.id} className="mb-2 animate-fade-up animate-delay-200">
-        {/* Display movie details */}
-        <img
-          onClick={() => movieClickACB(movie)}
-          src={image_url}
-          alt={movie.original_title}
-          className="rounded-lg shadow-lg"
-          style={{
-            filter: "drop-shadow(0 0 0.75rem #D300FE)",
-            cursor: "pointer",
-          }}
-          width="190"
-        />
-
-        {isModalOpen && (
-          <DetailModal
-            isModalOpen={isModalOpen}
-            closeModal={closeModal}
-            movie={movie}
-          />
-        )}
-      </div>
-    );
-  }
 }
 
 export default LikedMoviesView;

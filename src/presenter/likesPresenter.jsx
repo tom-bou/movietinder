@@ -8,7 +8,7 @@ observer(
     
     return (
         <div>
-            <LikedMoviesView/>
+            <LikedMoviesView model={props.model}/>
         </div>
         );
 

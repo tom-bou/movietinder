@@ -45,15 +45,15 @@ export default function NavbarView(props) {
 
 
     return (
-        <nav class=" font-sans rounded-sm z-10 bg-[#150629cb] fixed  top-0 flex justify-between items-center w-full py-2 px-8">
-        <div class="md:static md:min-h-fit">
-            <ul class="flex md:flex-row flex-col items-center md:gap-6">
+        <nav className=" font-sans rounded-sm z-10 bg-[#150629cb] fixed top-0 flex justify-between w-full py-2 px-8">
+        <div className="md:static md:min-h-fit">
+            <ul className="flex md:flex-row flex-col items-center md:gap-6">
             <li>
-            <button><a class="text-white hover:text-pink-300" onClick={windowSwipe} style={{textShadow: "0px 0px 4px #FFFFFF" }} href="#">Swipe</a></button>
+            <button><a className="text-white text-xs md:text-base hover:text-pink-300" onClick={windowSwipe} style={{textShadow: "0px 0px 4px #FFFFFF" }} >Swipe</a></button>
             </li>
             <li>
-                {!currentSessionId &&<button><a onClick={createSession} class="text-white hover:text-pink-300" style={{textShadow: "0px 0px 4px #FFFFFF" }} href="#">Create Session</a></button>}
-                {currentSessionId &&<button><a onClick={handleLeaveSession} class="text-white hover:text-pink-300" style={{textShadow: "0px 0px 4px #FFFFFF" }} href="#">Leave Session</a></button>}
+                {!currentSessionId && <button><a onClick={createSession} className="text-white hover:text-pink-300 text-xs md:text-base" style={{textShadow: "0px 0px 4px #FFFFFF" }}>Create Session</a></button>}
+                {currentSessionId &&<button><a onClick={handleLeaveSession} className="text-white hover:text-pink-300 text-xs md:text-base" style={{textShadow: "0px 0px 4px #FFFFFF" }} href="#">Leave Session</a></button>}
             </li>
             <li>
             {currentSessionId && <h1 className="text-white" style={{textShadow: "0px 0px 4px #ffffff" }}>Current Session Id: {currentSessionId}</h1>}
@@ -69,11 +69,11 @@ export default function NavbarView(props) {
             placeholder="Enter Session ID"
             value={sessionId}
             onChange={(e) => setSessionIdState(e.target.value)}
-            className="flex border rounded px-8 text-gray-700 leading-normal focus:outline-none focus:shadow-outline"
-        />
+            className="flex border rounded md:px-8 text-gray-700 leading-normal focus:outline-none focus:shadow-outline text-xs md:text-base"
+            />
         <img
             onClick={handleJoinSession}
-            className="w-8 hover:animate-wiggle ml-2"
+            className="w-6 md:w-8 hover:animate-wiggle ml-2"
             src={keys}
             alt="Keys"
         />
@@ -82,10 +82,10 @@ export default function NavbarView(props) {
             </ul>
         </div>
         {!loggedIn && (
-            <div class="">
+            <div className="">
                 <button
                     onClick={windowLogin}
-                    class="bg-[#F4D0FD] px-4 py-1 text-[#2A1547] rounded-lg"
+                    className="bg-[#F4D0FD] px-4 py-1 text-[#2A1547] rounded-lg"
                     style={{ textShadow: "0px 0px 2px #812789" }}
                 >
                     Login
@@ -94,10 +94,10 @@ export default function NavbarView(props) {
         )}
 
         {loggedIn && (
-            <div class="">
+            <div className="">
                 <button
                     onClick={handleSignOut}
-                    class="bg-[#F4D0FD] px-4 py-1 text-[#2A1547] rounded-lg"
+                    className="bg-[#F4D0FD] px-4 py-1 text-[#2A1547] rounded-lg"
                     style={{ textShadow: "0px 0px 2px #812789" }}
                 >
                     Sign Out

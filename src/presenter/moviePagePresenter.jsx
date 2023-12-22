@@ -2,14 +2,20 @@ import { observer } from "mobx-react-lite";
 import MoviePageView from "../views/moviePageView.jsx";
 import loadingpinkblue from "../images/loadingpinkblue.gif";
 import logo from "../images/logo.png";
-import dislikebutton from "../images/dislikebutton.png";
-import likebutton from "../images/likebutton.png";
-import trailer from "../images/trailer.png";
-import moviegif from "../images/moviegif.gif";
+import { useDispatch, useSelector } from "react-redux";
+import { likeMovie } from "../userSlice.js";
+
 
 export default observer(function MoviePagePresenter(props) {
+  const userDetails = useSelector((state) => state.user.details);
+
+  const dispatch = useDispatch();
+
   function handleLikeACB(evt) {
+    props.firebaseModel.saveLikedMovie(userDetails.userId, props.model.currentMoviePromiseState.data.id)
+    dispatch(likeMovie(props.model.currentMoviePromiseState.data.id));
     props.model.likeMovie(props.model.currentMoviePromiseState.data);
+
   }
 
   function handleDislikeACB(evt) {
