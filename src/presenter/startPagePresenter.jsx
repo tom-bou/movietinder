@@ -61,7 +61,7 @@ export default
           const createSession = async () => {
             if (!isLoggedIn || currentSessionId) return;
             try {
-              const newSessionId = await firebaseModel.createSession([user.userId]);
+              const newSessionId = await firebaseModel.createSession(user.userId);
               dispatch(joinSession({ userId: user.userId, sessionId: newSessionId })); // Update the Redux store with the new session ID
 
               fetchSessionMembers(newSessionId, [user.userId], dispatch, firebaseModel);
@@ -108,7 +108,6 @@ export default
           const handleLeaveSession = async () => {
             if (!isLoggedIn || !currentSessionId) return;
             try {
-
               await firebaseModel.leaveSession(currentSessionId, user.userId);
               dispatch(leaveSession()); // Update the Redux store when leaving a session
 

@@ -4,12 +4,17 @@ import loadingpinkblue from "../images/loadingpinkblue.gif";
 import logo from "../images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { likeMovie } from "../userSlice.js";
+import { useEffect } from "react";
 
 
 export default observer(function MoviePagePresenter(props) {
   const userDetails = useSelector((state) => state.user.details);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    props.model.doMovieSearch();
+  }, [props.model]);
 
   function handleLikeACB(evt) {
     props.firebaseModel.saveLikedMovie(userDetails.userId, props.model.currentMoviePromiseState.data.id)

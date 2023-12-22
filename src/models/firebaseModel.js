@@ -33,7 +33,7 @@ const Firebase = {
 
     const sessionData = sessionDoc.data();
     sessionData.members = sessionData.members.filter(memberId => memberId !== userId);
-    sessionData.likes[userId] = []; // Optionally handle likes related to the user
+
 
     if (sessionData.members.length === 0) {
       // Delete the session if no members are left
@@ -51,7 +51,6 @@ const Firebase = {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       await this.createUserProfile(userCredential.user.uid, {
         email: userCredential.user.email,
-        likedMovies: []
       });
       const likedMovies = await this.getLikedMovies(userCredential.user.uid);
       return {userCredential, likedMovies};
@@ -67,7 +66,6 @@ const Firebase = {
       const userCredential = await signInWithPopup(auth, provider);
       await this.createUserProfile(userCredential.user.uid, {
         email: userCredential.user.email,
-        likedMovies: []
       });
       const likedMovies = await this.getLikedMovies(userCredential.user.uid);
       return {userCredential, likedMovies};
@@ -138,10 +136,10 @@ const Firebase = {
     return [];
   },
 
-  async createSession(userIds) {
+  async createSession(userId) {
+
     const sessionRef = await addDoc(collection(firestore, 'sessions'), {
-      members: userIds,
-      likes: userIds.reduce((acc, userId) => ({ ...acc, [userId]: [] }), {})
+      members: [userId],
     });
     return sessionRef.id;
   },
@@ -150,7 +148,7 @@ const Firebase = {
     const sessionRef = doc(firestore, 'sessions', sessionId);
     await updateDoc(sessionRef, {
       members: arrayUnion(userId),
-      [`likes.${userId}`]: []
+
     });
   },
 

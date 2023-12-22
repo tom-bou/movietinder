@@ -24,12 +24,12 @@ const movieModel = {
         searchParams = getRandomInt(1000);
         tryGetMovieDetails(); // Recursive call for retry
       });
-
+      
       // check if the movie has a trailer and poster image if not try again
     }
 
     tryGetMovieDetails();
-    return this.currentMoviePromiseState;
+    return {...this.currentMoviePromiseState};
   },
 
 
