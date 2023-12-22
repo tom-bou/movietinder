@@ -3,7 +3,7 @@ import MoviePageView from "../views/moviePageView.jsx";
 import loadingpinkblue from "../images/loadingpinkblue.gif";
 import logo from "../images/logo.png";
 
-export default function MoviePagePresenter(props) {
+export default observer(function MoviePagePresenter(props) {
   const promiseState = props.model.currentMoviePromiseState;
 
   function handleLikeACB(evt) {
@@ -146,4 +146,4 @@ export default function MoviePagePresenter(props) {
       return promiseState.error.toString();
     }
   }
-};
+});
