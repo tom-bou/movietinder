@@ -80,6 +80,14 @@ export default function NavbarView(props) {
         />
         </button>}
             </li>
+            <li>
+                {!loggedIn && 
+      <div
+        className="text-center py-4 text-lg text-white"
+      >
+        Please log in to create or join a session.
+      </div>}
+            </li>
             </ul>
         </div>
         {!loggedIn && (

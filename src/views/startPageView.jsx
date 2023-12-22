@@ -42,19 +42,6 @@ function StartPageView(props) {
   };
 
   // UI rendering logic
-  if (!isLoggedIn) {
-    return (
-      <div
-        className="text-center py-4 text-lg text-white"
-        style={{
-          background:
-            "linear-gradient(to bottom, #150629 60%, #1C0A34, #5A2960)",
-        }}
-      >
-        Please log in to create or join a session.
-      </div>
-    );
-  }
 
   if (currentSessionId) {
     return (

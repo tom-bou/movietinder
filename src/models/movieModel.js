@@ -15,16 +15,13 @@ const movieModel = {
     }
 
     function tryGetMovieDetails() {
-      
       let movieDetailsPromise = getMovieDetails(searchParams);
-
       resolvePromise(movieDetailsPromise, self.currentMoviePromiseState);
       movieDetailsPromise.catch(function (error) {
         console.error("Failed to get movie details, retrying...", error);
         searchParams = getRandomInt(1000);
         tryGetMovieDetails(); // Recursive call for retry
       });
-      
       // check if the movie has a trailer and poster image if not try again
     }
 
