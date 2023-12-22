@@ -2,6 +2,8 @@ import firebaseConfig from "../firebaseConfig.js";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { getFirestore, collection, addDoc, doc, setDoc, deleteDoc, getDoc, onSnapshot, updateDoc, arrayUnion } from 'firebase/firestore';
+import { useDispatch } from "redux";
+import { setSessionMembers } from "../sessionSlice.js";
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -172,12 +174,12 @@ const Firebase = {
   
   onSessionChanged(sessionId, callback) {
     const sessionRef = doc(firestore, 'sessions', sessionId);
+
     return onSnapshot(sessionRef, (doc) => {
       if (doc.exists()) {
         callback(doc.data());
       }
     });
   }
-};
-
+}
 export default Firebase;
