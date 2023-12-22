@@ -13,13 +13,13 @@ function LoginView(props) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
   let navigate = useNavigate();
 
-function windowToStartPage(evt) {
-  navigate("/");
-  }
-  
+  function windowToStartPage(evt) {
+    navigate("/");
+    }
+    
   const onEmailLogin = async (email, password) => {
     try {
         await props.onEmailLogin(email, password);
