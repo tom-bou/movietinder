@@ -8,24 +8,18 @@ import DetailModal from "./detailModal";
 import { toJS } from "mobx";
 
 function LikedMoviesView(props) {
-  const [likedMovies, setLikedMovies] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentMovie, setCurrentMovie] = useState(null);
-  const [sessionLikes, setSessionLikes] = useState([]);
-  const [sessionMembers, setSessionMembers] = useState([]);
 
-  const sessionId = useSelector((state) => state.session.sessionId);
-  const userId = useSelector((state) => state.user.details.userId);
 
-  let navigate = useNavigate();
 
   // Navigate functions
   function windowToSwipe() {
-    navigate("/moviepage");
+    props.goToSwipe();
   }
 
   function windowToStartPage() {
-    navigate("/");
+    props.goToStart();
   }
 
   // Modal control functions
@@ -39,57 +33,9 @@ function LikedMoviesView(props) {
   }
 
   // Fetching liked movies
-  useEffect(() => {
-    const fetchMovies = async (userId) => {
-      try {
-        const likedMoviesIds = await props.firebaseModel.getLikedMovies(userId);
-
-        const promises = likedMoviesIds.map((movieId) => props.model.doMovieSearch(movieId));
-        let movies = await Promise.all(promises.map(result => result.promise));
-        movies = movies.map(movie => toJS(movie));
-
-        
-        return movies
-      } catch (error) {
-        console.error("Failed to fetch movies:", error);
-      }
-    };
-
-
-    const fetchMoviesAndSetState = async () => {
-      const movies = await fetchMovies(userId);
-      setLikedMovies(movies);
-    };
   
-    fetchMoviesAndSetState();
-    
-    const fetchSessionLikes = async (sessionId) => {
-      const members = await props.firebaseModel.getSessionMembers(sessionId);
-      setSessionMembers(members);
-    
-      let memberLikes = members.map((member) => fetchMovies(member));
-      let likesArrays = await Promise.all(memberLikes);
-      console.log(likesArrays);
-      const intersection = likesArrays.reduce((accumulator, currentArray) => {
-        return accumulator.filter(accElement =>
-          currentArray.some(currElement => currElement.id === accElement.id)
-        );
-      }, likesArrays[0] || []);
-      console.log(intersection);
-      
-      // 'intersection' now contains the common elements between all member likes
-      setSessionLikes(intersection);
-    }
-    
-    
-    if (sessionId) {
-      fetchSessionLikes(sessionId);
-    }
-    }, [props.firebaseModel, props.model, userId, sessionId]);
-
-
   function renderMovie(movie) {
-    console.log(movie.original_title);
+
     return (
       <div key={movie.id} className="mb-2 animate-fade-up animate-delay-200">
         <img
@@ -176,14 +122,14 @@ function LikedMoviesView(props) {
             dispay: "inline-block",
           }}
         >
-          {likedMovies.length}
+          {props.likedMovies.length}
         </h2>
       </div>
       <div className="flex flex-wrap justify-center gap-20 m-20">
-        {likedMovies.map((movie) => renderMovie(movie))}
+        {props.likedMovies.map((movie) => renderMovie(movie))}
       </div>
 
-      {sessionId && (
+      {props.showSessionLikes && (
         <div className="text-center flex flex-col">
           <h1
             className="text-3xl font-thin font-sans inline-block ml-3"
@@ -211,11 +157,11 @@ function LikedMoviesView(props) {
               dispay: "inline-block",
             }}
           >
-            {sessionLikes.length}
+            {props.sessionLikes.length}
           </h2>
 
           <div className="flex flex-wrap justify-start gap-20 m-20">
-            {sessionLikes.map((movie) => renderMovie(movie))}
+            {props.sessionLikes.map((movie) => renderMovie(movie))}
           </div>
         </div>
 

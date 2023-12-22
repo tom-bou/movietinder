@@ -12,9 +12,9 @@ export default observer(function MoviePagePresenter(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("MoviePagePresenter useEffect");
-    props.model.doMovieSearch();
-  }, [props.model]);
+  console.log("MoviePagePresenter useEffect");
+  props.model.doMovieSearch();
+}, [...Object.values(props)]);
 
   function handleLikeACB(evt) {
     props.firebaseModel.saveLikedMovie(
