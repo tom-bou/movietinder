@@ -16,12 +16,19 @@ export function getMovieDetails(movieId) {
     return movieDetails;
   }
 
+  function checkPicture(movieDetails) {
+    if (!movieDetails.poster_path) {
+      throw new Error("No picture available for this movie");
+    }
+    return movieDetails;
+  }
+
   function changeVideoACB(movieDetails) {
     function videoToKeyChangeACB(videoResponse) {
       if (videoResponse.results && videoResponse.results.length > 0) {
         movieDetails.video = videoResponse.results[0].key;
       } else {
-        movieDetails.video = null; 
+        throw new Error("No video available for this movie");
       }
       return movieDetails;
     }
@@ -30,9 +37,17 @@ export function getMovieDetails(movieId) {
 
   function changeCreditsACB(movieDetails) {
     function creditsToCastChangeACB(creditsResponse) {
+      if (!creditsResponse.cast || creditsResponse.cast.length === 0) {
+        throw new Error("No cast information available");
+      }
       movieDetails.cast = creditsResponse.cast;
-      movieDetails.director = creditsResponse.crew.find((crewMember) => crewMember.job === "Director");
-      //console.log(movieDetails.director)
+  
+      const director = creditsResponse.crew.find(crewMember => crewMember.job.toLowerCase().includes("director"));
+      if (!director) {
+        throw new Error("Director not found");
+      }
+      movieDetails.director = director;
+  
       return movieDetails;
     }
     return getMovieCredits(movieId).then(creditsToCastChangeACB);
@@ -54,6 +69,7 @@ export function getMovieDetails(movieId) {
   })
     .then(myFetchACB)
     .then(checkAdult)
+    .then(checkPicture) 
     .then(changeVideoACB)
     .then(changeCreditsACB)
     .catch(onErrorACB);
