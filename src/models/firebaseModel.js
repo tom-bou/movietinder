@@ -1,7 +1,7 @@
 import firebaseConfig from "../firebaseConfig.js";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
-import { getFirestore, collection, addDoc, getDocs, doc, setDoc, deleteDoc, where, getDoc, onSnapshot, updateDoc, arrayUnion } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, setDoc, deleteDoc, getDoc, onSnapshot, updateDoc, arrayUnion } from 'firebase/firestore';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -33,7 +33,7 @@ const Firebase = {
 
     const sessionData = sessionDoc.data();
     sessionData.members = sessionData.members.filter(memberId => memberId !== userId);
-    sessionData.likes[userId] = []; // Optionally handle likes related to the user
+
 
     if (sessionData.members.length === 0) {
       // Delete the session if no members are left
@@ -47,22 +47,32 @@ const Firebase = {
   },
 
   async signInWithEmailPassword(email, password) {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    await this.createUserProfile(userCredential.user.uid, {
-      email: userCredential.user.email,
-      likedMovies: []
-    });
-    return userCredential;
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      await this.createUserProfile(userCredential.user.uid, {
+        email: userCredential.user.email,
+      });
+      const likedMovies = await this.getLikedMovies(userCredential.user.uid);
+      return {userCredential, likedMovies};
+    } catch (error) {
+      console.error('Error signing in with email and password:', error);
+      throw error;
+    }
   },
 
   async signInWithGoogle() {
-    const provider = new GoogleAuthProvider();
-    const userCredential = await signInWithPopup(auth, provider);
-    await this.createUserProfile(userCredential.user.uid, {
-      email: userCredential.user.email,
-      likedMovies: []
-    });
-    return userCredential;
+    try {
+      const provider = new GoogleAuthProvider();
+      const userCredential = await signInWithPopup(auth, provider);
+      await this.createUserProfile(userCredential.user.uid, {
+        email: userCredential.user.email,
+      });
+      const likedMovies = await this.getLikedMovies(userCredential.user.uid);
+      return {userCredential, likedMovies};
+    } catch (error) {
+      console.error('Error signing in with Google:', error);
+      throw error;
+    }
   },
 
   async logoutUser () {
@@ -126,10 +136,10 @@ const Firebase = {
     return [];
   },
 
-  async createSession(userIds) {
+  async createSession(userId) {
+
     const sessionRef = await addDoc(collection(firestore, 'sessions'), {
-      members: userIds,
-      likes: userIds.reduce((acc, userId) => ({ ...acc, [userId]: [] }), {})
+      members: [userId],
     });
     return sessionRef.id;
   },
@@ -138,7 +148,7 @@ const Firebase = {
     const sessionRef = doc(firestore, 'sessions', sessionId);
     await updateDoc(sessionRef, {
       members: arrayUnion(userId),
-      [`likes.${userId}`]: []
+
     });
   },
 
@@ -171,5 +181,3 @@ const Firebase = {
 };
 
 export default Firebase;
-
-export { auth, firestore };

@@ -3,11 +3,26 @@ import MoviePageView from "../views/moviePageView.jsx";
 import loadingpinkblue from "../images/loadingpinkblue.gif";
 import logo from "../images/logo.png";
 
+import { useDispatch, useSelector } from "react-redux";
+import { likeMovie } from "../userSlice.js";
+import { useEffect } from "react";
+
+
 export default observer(function MoviePagePresenter(props) {
-  const promiseState = props.model.currentMoviePromiseState;
+  const userDetails = useSelector((state) => state.user.details);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    props.model.doMovieSearch();
+  }, [props.model]);
+
 
   function handleLikeACB(evt) {
+    props.firebaseModel.saveLikedMovie(userDetails.userId, props.model.currentMoviePromiseState.data.id)
+    dispatch(likeMovie(props.model.currentMoviePromiseState.data.id));
     props.model.likeMovie(props.model.currentMoviePromiseState.data);
+
   }
 
   function handleDislikeACB(evt) {

@@ -14,7 +14,7 @@ const container = document.getElementById('root');
 configure({ enforceActions: "never" }); // we don't use Mobx actions
 const reactiveModel = observable(model);
 
-reactiveModel.doRandomMovieSearch(Math.floor(Math.random() * Math.floor(869835)));
+reactiveModel.doMovieSearch(Math.floor(Math.random() * Math.floor(869835)));
 
 const root = createRoot(container);
 root.render(<ReactRoot firebaseModel={firebase} movieModel={reactiveModel}/>);

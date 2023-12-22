@@ -13,23 +13,20 @@ import { logoutUser } from "../userSlice";
 
 export default
     function StartPagePresenter({firebaseModel}) {
-        const [loading, setLoading] = useState(false);
-        const [sessionId, setSessionIdState] = useState("");
+
 
         const user = useSelector((state) => state.user.details);
         const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
         const currentSessionId = useSelector((state) => state.session.sessionId);
-        const sessionMembers = useSelector((state) => state.session.members);
-        const sessionMemberEmails = useSelector((state) => state.session.emails);
-        
+
         const dispatch = useDispatch();
         const navigate = useNavigate();
 
-        
+
 
         useEffect(() => {
             let unsubscribe = () => {};
-        
+
             if (currentSessionId) {
               unsubscribe = firebaseModel.onSessionChanged(
                 currentSessionId,
@@ -39,7 +36,7 @@ export default
                 }
               );
             }
-        
+
             return () => unsubscribe(); // Cleanup the listener when the component unmounts or sessionId changes
           }, [firebaseModel, currentSessionId]);
 
@@ -64,13 +61,12 @@ export default
           const createSession = async () => {
             if (!isLoggedIn || currentSessionId) return;
             try {
-              setLoading(true);
-              const newSessionId = await firebaseModel.createSession([user.userId]);
+              const newSessionId = await firebaseModel.createSession(user.userId);
               dispatch(joinSession({ userId: user.userId, sessionId: newSessionId })); // Update the Redux store with the new session ID
-              setLoading(false);
+
               fetchSessionMembers(newSessionId, [user.userId], dispatch, firebaseModel);
             } catch (error) {
-              setLoading(false);
+
               console.error("Error creating session:", error);
             }
           };
@@ -93,10 +89,10 @@ export default
           const handleJoinSession = async (sessionId) => {
             if (!isLoggedIn || !sessionId) return;
             try {
-              setLoading(true);
+
               await firebaseModel.joinSession(sessionId, user.userId);
               dispatch(joinSession({ userId: user.userId, sessionId: sessionId })); // Update the Redux store when joining a session
-              setLoading(false);
+
               await fetchSessionMembers(
                 sessionId,
                 [user.userId],
@@ -104,7 +100,7 @@ export default
                 firebaseModel
               );
             } catch (error) {
-              setLoading(false);
+
               console.error("Error joining session:", error);
             }
           };
@@ -112,13 +108,11 @@ export default
           const handleLeaveSession = async () => {
             if (!isLoggedIn || !currentSessionId) return;
             try {
-              setLoading(true);
               await firebaseModel.leaveSession(currentSessionId, user.userId);
               dispatch(leaveSession()); // Update the Redux store when leaving a session
-              setLoading(false);
-              setSessionIdState(""); // Reset local state
+
             } catch (error) {
-              setLoading(false);
+
               console.error("Error leaving session:", error);
             }
           };
@@ -131,13 +125,13 @@ export default
         }
 
         const handleSignOut = async () => {
-            setLoading(true);
             dispatch(logoutUser());
-            setLoading(false);
+            await firebaseModel.logoutUser();
+
         };
 
     return <div>
-        <NavbarView createSession={createSession} joinSession={handleJoinSession}  goToLogin={goToLogin} goToSwipe={goToSwipe} leaveSession={handleLeaveSession} />
+        <NavbarView createSession={createSession} joinSession={handleJoinSession}  goToLogin={goToLogin} goToSwipe={goToSwipe} leaveSession={handleLeaveSession} signOut={handleSignOut}/>
         <StartPageView firebaseModel={firebaseModel} createSession={createSession} handleJoinSession={handleJoinSession} handleLeaveSession={handleLeaveSession} goToSwipe={goToSwipe} />
         </div>
 };

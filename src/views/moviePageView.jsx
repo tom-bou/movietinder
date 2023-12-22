@@ -19,6 +19,17 @@ function MoviePageView(props) {
   }
 
   function dislikeACB(evt) {
+    props.onDislike();
+  }
+
+  let navigate = useNavigate();
+
+  function windowToLikes(evt) {
+    navigate("/yourlikes");
+  }
+
+  function windowToStartPage(evt) {
+    navigate("/");´
     setAnimationType("dislike");
     setTimeout(() => props.onDislike(), 1500);
   }

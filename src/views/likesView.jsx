@@ -1,73 +1,78 @@
+
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import likebutton from "../images/likebutton.png";
 import fire from "../images/fire.png";
 import logo from "../images/logo.png";
-import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import DetailModal from "./detailModal";
-
-const likedMovies = [
-  {
-    id: 226,
-    original_title: "Don't Don't Cry",
-    poster_path: "/nKXTgbruSrezC1tAeKB6Ri7cGkK.jpg",
-    director: {
-      name: "Kimberly Peirce",
-    },
-    cast: [
-      { name: "Hilary Swank" },
-      { name: "Chloë Sevigny" },
-      { name: "Peter Sarsgaard" },
-    ],
-    genres: [{ name: "Crime" }, { name: "Drama" }],
-    overview:
-      "Bla bla bla this is a sample overview. Jag föredrar bananer över äpplen förresten.",
-    video: "dQw4w9WgXcQ?si=7KskIbgdUbf3mNj7",
-  },
-  {
-    id: 230,
-    original_title: "DonasdasdCry",
-    poster_path: "/nKXTgbruSrezC1tAeKB6Ri7cGkK.jpg",
-    director: {
-      name: "Kimberly Peirce",
-    },
-    cast: [
-      { name: "Hilary Swank" },
-      { name: "Chloë Sevigny" },
-      { name: "Peter Sarsgaard" },
-    ],
-    genres: [{ name: "Crime" }, { name: "Drama" }],
-    overview:
-      "Bla bla bla this is a sample overview. Jag föredrar bananer över äpplen förresten.",
-    video: "dQw4w9WgXcQ?si=7KskIbgdUbf3mNj7",
-  },
-];
+import DetailModal from './detailModal';
+import { toJS } from 'mobx';
 
 function LikedMoviesView(props) {
-  const numberOflikes = likedMovies.length;
-
+  const likedMoviesIds = useSelector((state) => state.user.details.likedMovies);
+  const [likedMovies, setLikedMovies] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   let navigate = useNavigate();
 
-  function windowToSwipe(evt) {
+  // Navigate functions
+  function windowToSwipe() {
     navigate("/moviepage");
   }
 
-  function windowToStartPage(evt) {
-    navigate("/");
+  function windowToStartPage() {
+    navigate("/startpage");
   }
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedMovie, setSelectedMovie] = useState(null);
-
-  function openModal(movie) {
-    setSelectedMovie(movie);
+  // Modal control functions
+  function openModal() {
     setIsModalOpen(true);
   }
 
-  useEffect(() => {}, [isModalOpen]);
-
   function closeModal() {
     setIsModalOpen(false);
-    setSelectedMovie(null);
+  }
+
+  // Fetching liked movies
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const promises = likedMoviesIds.map((movieId) => props.model.doMovieSearch(movieId));
+        let movies = await Promise.all(promises.map(result => result.promise));
+        movies = movies.map(movie => toJS(movie));
+        console.log(movies);
+        setLikedMovies(movies);
+      } catch (error) {
+        console.error("Failed to fetch movies:", error);
+      }
+    };
+
+    fetchMovies();
+  }, [likedMoviesIds, props.model]);
+
+  // Function to render individual movie items
+  function renderMovie(movie) {
+    const image_url = "https://image.tmdb.org/t/p/w780/" + movie.poster_path;
+    return (
+      <div key={movie.id} className="mb-2 animate-fade-up animate-delay-200">
+        <img
+          onClick={() => openModal()}
+          src={image_url}
+          alt={movie.original_title}
+          className="rounded-lg shadow-lg"
+          style={{ filter: "drop-shadow(0 0 0.75rem #D300FE)", cursor: "pointer" }}
+          width="190"
+        />
+
+        {isModalOpen && (
+          <DetailModal
+            isModalOpen={isModalOpen}
+            closeModal={closeModal}
+            movie={movie}
+          />
+        )}
+      </div>
+    );
+
   }
 
   return (
@@ -77,15 +82,18 @@ function LikedMoviesView(props) {
         background: "linear-gradient(to bottom, #150629 40%, #1C0A34, #5A2960)",
       }}
     >
+
 <button class="shadow-inner absolute md:left-2 md:top-7 top-2 left-2 top-7 md:w-40 w-16">
         <img    
         className=" xl:flex shadow-inner absolute"    
           onClick={windowToStartPage}
+
           src={logo}
           alt="Logo icon"
           style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }}
         />
       </button>
+
       <div className="text-center">
         <h1
           className="text-3xl font-thin font-sans mt-8"
@@ -118,6 +126,7 @@ function LikedMoviesView(props) {
           {numberOflikes}
         </h2>
       </div>
+
       <span className="spanButton" onClick={windowToSwipe}>
         <h1
           className="text-3xl font-thin font-sans absolute top-5 right-32 w-11 mt-5 hidden lg:inline"
@@ -145,6 +154,7 @@ function LikedMoviesView(props) {
     </div>
   );
 
+
   function renderMovieCB(movie) {
     const image_url = "https://image.tmdb.org/t/p/w780/" + movie.poster_path;
 
@@ -164,6 +174,7 @@ function LikedMoviesView(props) {
       </div>
     );
   }
+
 }
 
 export default LikedMoviesView;

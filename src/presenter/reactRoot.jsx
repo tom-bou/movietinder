@@ -21,9 +21,9 @@ const ReactRoot = (props) => {
               <Route path="/" element={<StartPagePresenter firebaseModel={props.firebaseModel} />} />
               <Route path="/login" element={<LoginPresenter firebaseModel={props.firebaseModel} />} />
               <Route path="/register" element={<RegisterPresenter firebaseModel={props.firebaseModel} />} />
-              <Route path="/yourlikes" element={<LikesPresenter firebaseModel={props.firebaseModel} />} />
-              <Route path="/movie" element={<Movie model={props.movieModel} />} />
-              <Route path="/moviepage" element={<MoviePageView model={props.movieModel} />} />
+              <Route path="/yourlikes" element={<LikesPresenter model={props.movieModel} firebaseModel={props.firebaseModel}  />} />
+              <Route path="/movie" element={<Movie model={props.movieModel} firebaseModel={props.firebaseModel} />} />
+              <Route path="/moviepage" element={<MoviePageView model={props.movieModel} firebaseModel={props.firebaseModel} />} />
             </Routes>
           </div>
         </Router>
