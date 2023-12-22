@@ -3,10 +3,12 @@ import RegisterView from "../views/registerView";
 import ErrorModal from "../views/errorModal"; // Import the ErrorModal
 import { useDispatch } from "react-redux";
 import { loginUser } from "../userSlice";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPresenter = ({ firebaseModel }) => {
     const [error, setError] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -14,6 +16,7 @@ const RegisterPresenter = ({ firebaseModel }) => {
         try {
             const credentials = await firebaseModel.registerUser(email, password);
             dispatch(loginUser({email: credentials.user.email, userId: credentials.user.uid, likedMovies: [] }));
+            navigate("/");
             setError(null);
             setShowModal(false);
         } catch (err) {
