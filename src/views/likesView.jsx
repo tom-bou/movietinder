@@ -214,7 +214,7 @@ function LikedMoviesView(props) {
             {sessionLikes.length}
           </h2>
 
-          <div className="flex flex-wrap justify-start gap-20 m-20">
+          <div className="flex flex-wrap justify-center gap-20 m-20">
             {sessionLikes.map((movie) => renderMovie(movie))}
           </div>
         </div>
