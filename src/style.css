@@ -170,3 +170,7 @@ body {
   height: 50px; 
 }
 
+.minimum-margin {
+  padding-top: min(10%, 7vh);
+}
+
