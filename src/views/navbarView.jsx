@@ -69,7 +69,7 @@ export default function NavbarView(props) {
             placeholder="Enter Session ID"
             value={sessionId}
             onChange={(e) => setSessionIdState(e.target.value)}
-            className="flex border rounded px-8 text-gray-700 leading-normal focus:outline-none focus:shadow-outline"
+            className="flex border rounded lg:px-8 px-2 text-gray-700 leading-normal focus:outline-none focus:shadow-outline"
         />
         <img
             onClick={handleJoinSession}
