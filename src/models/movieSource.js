@@ -9,6 +9,13 @@ export function getMovieDetails(movieId) {
     return response.json();
   }
 
+  function checkAdult(movieDetails) {
+    if (movieDetails.adult) {
+      throw new Error("Adult content found, fetching another movie");
+    }
+    return movieDetails;
+  }
+
   function changeVideoACB(movieDetails) {
     function videoToKeyChangeACB(videoResponse) {
       if (videoResponse.results && videoResponse.results.length > 0) {
@@ -46,6 +53,7 @@ export function getMovieDetails(movieId) {
     },
   })
     .then(myFetchACB)
+    .then(checkAdult)
     .then(changeVideoACB)
     .then(changeCreditsACB)
     .catch(onErrorACB);

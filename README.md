@@ -1,17 +1,19 @@
 # Short description of project
-A web app that helps you discover and pick movies that you want to watch. The user is shown one movie at a time. The movie's poster, description, actors and director(s) are shown to help the user decide whether or not they are interested in watching it. If the user wants to, they can also watch the movie's trailer. 
+Our web app offers a unique experience where you can explore a diverse selection of randomly generated movies, complete with trailers and details like cast, director, and genre. You can express your preferences by liking or disliking movies, which are then saved to your profile. You will also be able to compare your movie preferences with friends, making it easier to find a mutually enjoyable movie to watch together.
 
-# What we have done
-We have added all the most critical pages (login/register, main movie page and library of liked movies). The app is connected to our chosen API and successfully retreives the data needed to present each movie. There are some responsive layouts, but not for mobile view.
-
-# What we plan to do
-We plan on adding a feature where the user can connect with their friends to a joint session and compare their top choices in a tournament-like format to decide a final movie to watch together. This will be done by choosing from your liked movies, but also a function of super liking a movie will be available to clearly separate the movies you REALLY want to watch.
+# How to use the app
+To utilize the app's features, you must first register and log into your personal account. Upon successful login, you'll gain the ability to like and dislike content, as well as create or join sessions.
 
 # Project file structure (short description/purpose of each file)
 ```
 📦 
+├─ .firebase
+│  ├─ hosting.YnVpbGQ.cache
+│  └─ hosting.ZGlzdA.cache
+├─ .firebaserc
 ├─ .gitignore
 ├─ README.md
+├─ firebase.json
 ├─ package-lock.json
 ├─ package.json
 ├─ public
@@ -22,18 +24,29 @@ We plan on adding a feature where the user can connect with their friends to a j
 │  ├─ manifest.json
 │  └─ robots.txt
 ├─ src
-│  ├─ firebaseConfig.js 
+│  ├─ firebaseConfig.js
 │  ├─ images
+│  │  ├─ arrowdown.png
+│  │  ├─ biglogo.png
+│  │  ├─ computer.png
+│  │  ├─ creategroup.png
 │  │  ├─ dislikebutton.png
+│  │  ├─ filmcamera.gif
+│  │  ├─ fingerswipe.png
 │  │  ├─ fire.png
+│  │  ├─ fourpeople.gif
 │  │  ├─ glasses.png
+│  │  ├─ keys.png
 │  │  ├─ likebutton.png
 │  │  ├─ loading.gif
+│  │  ├─ loadingpinkblue.gif
 │  │  ├─ logo.png
 │  │  ├─ moviefilm.png
 │  │  ├─ moviegif.gif
 │  │  ├─ popcorn.png
-│  │  └─ trailer.png
+│  │  ├─ student.png
+│  │  ├─ trailer.png
+│  │  └─ watchingtv.gif
 │  ├─ index.js
 │  ├─ models
 │  │  ├─ firebaseModel.js
@@ -43,25 +56,30 @@ We plan on adding a feature where the user can connect with their friends to a j
 │  │  ├─ sessionModel.js
 │  │  └─ userModel.js
 │  ├─ presenter
-│  │  ├─ startPagePresenter.jsx
 │  │  ├─ likesPresenter.jsx
 │  │  ├─ loginPresenter.jsx
-│  │  ├─ moviePagePresenter.jsx  # Makes sure we have received the data from the API before trying to render the view.
-│  │  ├─ moviePresenterTest.jsx  # Testing presentation of data from API.
-│  │  ├─ reactRoot.jsx  # Routing.
-│  │  └─ registerPresenter.jsx
+│  │  ├─ moviePagePresenter.jsx
+│  │  ├─ moviePresenterTest.jsx
+│  │  ├─ reactRoot.jsx
+│  │  ├─ registerPresenter.jsx
+│  │  └─ startPagePresenter.jsx
 │  ├─ sessionSlice.js
 │  ├─ store.js
-│  ├─ style.css  # Tailwind imports and custom CSS classes.
+│  ├─ style.css
 │  ├─ userSlice.js
 │  └─ views
+│     ├─ detailModal.jsx
+│     ├─ detailsView.jsx
 │     ├─ errorModal.jsx
-│     ├─ startPageView.jsx
+│     ├─ groupCreationView.jsx
 │     ├─ likesView.jsx
 │     ├─ loginView.jsx
-│     ├─ moviePageView.jsx  # Presents the data from the API to the user in a neat way.
-│     ├─ movieViewTest.jsx  # Testing presentation of data from API.
-│     └─ registerView.jsx
-└─ tailwind.config.js  # Config file for styling using Tailwind CSS.
+│     ├─ moviePageView.jsx
+│     ├─ movieViewTest.jsx
+│     ├─ navbarView.jsx
+│     ├─ registerView.jsx
+│     ├─ startPageView.jsx
+│     └─ videoModal.jsx
+└─ tailwind.config.js
 ```
 ©generated by [Project Tree Generator](https://woochanleee.github.io/project-tree-generator)
