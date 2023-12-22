@@ -103,14 +103,6 @@ function LikedMoviesView(props) {
           }}
           width="190"
         />
-
-        {isModalOpen && currentMovie && (
-          <DetailModal
-            isModalOpen={isModalOpen}
-            closeModal={closeModal}
-            movie={currentMovie}
-          />
-        )}
       </div>
     );
   }
@@ -122,6 +114,13 @@ function LikedMoviesView(props) {
         background: "linear-gradient(to bottom, #150629 40%, #1C0A34, #5A2960)",
       }}
     >
+      {isModalOpen && currentMovie && (
+        <DetailModal
+          isModalOpen={isModalOpen}
+          closeModal={closeModal}
+          movie={currentMovie}
+        />
+      )}
       <div className="navbar-swipe-buttons">
         <button class="shadow-inner absolute left-2 top-7 lg:w-40 w-16">
           <img
@@ -132,7 +131,10 @@ function LikedMoviesView(props) {
             style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }}
           />
         </button>
-        <span className="spanButton absolute top-7 lg:top-10 right-7" onClick={windowToSwipe}>
+        <span
+          className="spanButton absolute top-7 lg:top-10 right-7"
+          onClick={windowToSwipe}
+        >
           <h1
             className="relative text-3xl font-thin font-sans w-11 hidden lg:inline lg:mr-2 top-2"
             style={{ color: "#FFE370", textShadow: "0px 0px 4px #FFE370" }}
