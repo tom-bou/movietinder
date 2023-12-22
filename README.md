@@ -4,7 +4,10 @@ Our web app offers a unique experience where you can explore a diverse selection
 # How to use the app
 To utilize the app's features, you must first register and log into your personal account. Upon successful login, you'll gain the ability to like and dislike content, as well as create or join sessions.
 
-# Project file structure (short description/purpose of each file)
+# How to set up app locally
+Clone repo to computer, make sure packages listed in package.json are installed and then run "npm start dev".
+
+# Project file structure
 ```
 📦 
 ├─ .firebase
