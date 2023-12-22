@@ -13,6 +13,7 @@ function LikedMoviesView(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentMovie, setCurrentMovie] = useState(null);
   const [sessionLikes, setSessionLikes] = useState([]);
+  const [sessionMembers, setSessionMembers] = useState([]);
 
   const sessionId = useSelector((state) => state.session.sessionId);
   const userId = useSelector((state) => state.user.details.userId);
@@ -46,33 +47,42 @@ function LikedMoviesView(props) {
         const promises = likedMoviesIds.map((movieId) => props.model.doMovieSearch(movieId));
         let movies = await Promise.all(promises.map(result => result.promise));
         movies = movies.map(movie => toJS(movie));
-        console.log(movies);
-        setLikedMovies(movies);
+
+        
+        return movies
       } catch (error) {
         console.error("Failed to fetch movies:", error);
       }
     };
-    const fetchSessionLikes = async (sessionId) => {
-      const members = await props.firebaseModel.getSessionMembers(sessionId);
-      console.log(members)
-      const memberLikes = members.map(member => fetchMovies(member));
-    
-      Promise.all(memberLikes).then(likesArrays => {
-        const intersection = likesArrays.reduce((accumulator, currentArray) => {
-          // Assuming that the arrays contain primitive types (numbers, strings)
-          return accumulator.filter(element => currentArray.includes(element));
-        }, likesArrays[0] || []);
-    
-        // 'intersection' now contains the common elements between all member likes
-        setSessionLikes(intersection);
-      });}
 
-    fetchMovies(userId);
+    const fetchMoviesAndSetState = async () => {
+      const movies = await fetchMovies(userId);
+      setLikedMovies(movies);
+    };
+  
+    fetchMoviesAndSetState();
+    const fetchSessionLikes = async (sessionId) => {
+      setSessionMembers(await props.firebaseModel.getSessionMembers(sessionId));
+
+      let memberLikes = sessionMembers.map((member) => fetchMovies(member));
+      let likesArrays = await Promise.all(memberLikes);
+      console.log(likesArrays);
+      const intersection = likesArrays.reduce((accumulator, currentArray) => {
+        return accumulator.filter(accElement =>
+          currentArray.some(currElement => currElement.id === accElement.id)
+        );
+      }, likesArrays[0] || []);
+      console.log(intersection);
+      
+      // 'intersection' now contains the common elements between all member likes
+      setSessionLikes(intersection);
+    }
+    
     
     if (sessionId) {
       fetchSessionLikes(sessionId);
     }
-    }, [props.firebaseModel, props.model, userId, sessionId]);
+    }, [props.firebaseModel, props.model, userId, sessionId, sessionMembers]);
 
   // Function to render individual movie items
   function renderMovie(movie) {
@@ -160,7 +170,7 @@ function LikedMoviesView(props) {
       <div className="flex flex-wrap justify-center gap-20 m-20">
         {likedMovies.map((movie) => renderMovie(movie))}
       </div>
-      {sessionId && (<div><h1
+      {sessionMembers.length > 1 && (<div><h1
         className="text-3xl font-thin font-sans mt-8"
         style={{
           color: "#FF7272",
