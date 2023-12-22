@@ -10,6 +10,12 @@ export const sessionSlice = createSlice({
     emails: []
   },
   reducers: {
+    resetSession: (state) => {
+        state.sessionId = null;
+        state.members = [];
+        state.likedMovies = [];
+        state.emails = [];
+    },
 
     joinSession: (state, action) => {
         state.sessionId = action.payload.sessionId;
@@ -34,6 +40,6 @@ export const sessionSlice = createSlice({
   },
 });
 
-export const { setSessionId, joinSession, likeMovie, unlikeMovie, leaveSession, setSessionMembers } = sessionSlice.actions;
+export const { setSessionId, joinSession, likeMovie, unlikeMovie, leaveSession, setSessionMembers, resetSession } = sessionSlice.actions;
 
 export default sessionSlice.reducer;

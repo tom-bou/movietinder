@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSessionMembers, joinSession, leaveSession } from "../sessionSlice";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../userSlice";
+import {resetSession} from "../sessionSlice";
 
 //Presenter is "mellanhanden" between model and view. Presenter handles user input, updates model and view
 
@@ -126,6 +127,8 @@ export default
 
         const handleSignOut = async () => {
             dispatch(logoutUser());
+            dispatch(resetSession());
+
             await firebaseModel.logoutUser();
 
         };
