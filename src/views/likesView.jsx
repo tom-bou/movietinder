@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import likebutton from "../images/likebutton.png";
 import fire from "../images/fire.png";
 import logo from "../images/logo.png";
-import DetailModal from './detailModal';
-import { toJS } from 'mobx';
+import DetailModal from "./detailModal";
+import { toJS } from "mobx";
 
 function LikedMoviesView(props) {
   const likedMoviesIds = useSelector((state) => state.user.details.likedMovies);
@@ -43,9 +43,13 @@ function LikedMoviesView(props) {
     const fetchMovies = async (userId) => {
       try {
         const likedMoviesIds = await props.firebaseModel.getLikedMovies(userId);
-        const promises = likedMoviesIds.map((movieId) => props.model.doMovieSearch(movieId));
-        let movies = await Promise.all(promises.map(result => result.promise));
-        movies = movies.map(movie => toJS(movie));
+        const promises = likedMoviesIds.map((movieId) =>
+          props.model.doMovieSearch(movieId)
+        );
+        let movies = await Promise.all(
+          promises.map((result) => result.promise)
+        );
+        movies = movies.map((movie) => toJS(movie));
         console.log(movies);
         setLikedMovies(movies);
       } catch (error) {
@@ -54,38 +58,42 @@ function LikedMoviesView(props) {
     };
     const fetchSessionLikes = async (sessionId) => {
       const members = await props.firebaseModel.getSessionMembers(sessionId);
-      console.log(members)
-      const memberLikes = members.map(member => fetchMovies(member));
-    
-      Promise.all(memberLikes).then(likesArrays => {
+      console.log(members);
+      const memberLikes = members.map((member) => fetchMovies(member));
+
+      Promise.all(memberLikes).then((likesArrays) => {
         const intersection = likesArrays.reduce((accumulator, currentArray) => {
           // Assuming that the arrays contain primitive types (numbers, strings)
-          return accumulator.filter(element => currentArray.includes(element));
+          return accumulator.filter((element) =>
+            currentArray.includes(element)
+          );
         }, likesArrays[0] || []);
-    
+
         // 'intersection' now contains the common elements between all member likes
         setSessionLikes(intersection);
-      });}
+      });
+    };
 
     fetchMovies(userId);
-    
+
     if (sessionId) {
       fetchSessionLikes(sessionId);
     }
-    }, [props.firebaseModel, props.model, userId, sessionId]);
+  }, [props.firebaseModel, props.model, userId, sessionId]);
 
-  // Function to render individual movie items
   function renderMovie(movie) {
     console.log(movie.original_title);
-    const image_url = "https://image.tmdb.org/t/p/w780/" + movie.poster_path;
     return (
       <div key={movie.id} className="mb-2 animate-fade-up animate-delay-200">
         <img
           onClick={() => openModal(movie)}
-          src={image_url}
+          src={"https://image.tmdb.org/t/p/w780/" + movie.poster_path}
           alt={movie.original_title}
           className="rounded-lg shadow-lg"
-          style={{ filter: "drop-shadow(0 0 0.75rem #D300FE)", cursor: "pointer" }}
+          style={{
+            filter: "drop-shadow(0 0 0.75rem #D300FE)",
+            cursor: "pointer",
+          }}
           width="190"
         />
 
@@ -102,97 +110,107 @@ function LikedMoviesView(props) {
 
   return (
     <div
-      className="flex flex-col items-center justify-center min-h-screen"
+      className="flex flex-col items-center justify-center min-h-screen minimum-margin"
       style={{
         background: "linear-gradient(to bottom, #150629 40%, #1C0A34, #5A2960)",
       }}
     >
-      <div className="flex flex-col">
-      <button className=" absolute left-5 top-4 shadow-inner w-40" onClick={windowToStartPage}>
-        <img
-          src={logo}
-          alt="Logo icon"
-          style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }}
-        />
-      </button>
-      
-      <h1
-        className="text-3xl font-thin font-sans mt-8"
-        style={{
-          color: "#FF7272",
-          textShadow: "0px 0px 4px #FF3131",
-          display: "inline-block",
-        }}
-      >
-        Your Likes
-      </h1>
-      <h2
-        className="text-3xl font-thin font-sans mt-1 mr-10"
-        style={{
-          color: "#FF7272",
-          textShadow: "0px 0px 4px #FF3131",
-          display: "inline-block",
-        }}
-      >
-        {likedMovies.length}
-      </h2>
-      <img
-        src={likebutton}
-        alt="Heart icon"
-        className="absolute top-12 w-11 mt-5 ml-7"
-        style={{ display: "inline-block" }}
-      />
+      <div className="navbar-swipe-buttons">
+        <button class="shadow-inner absolute left-2 top-7 lg:w-40 w-16">
+          <img
+            className=" xl:flex shadow-inner absolute"
+            onClick={windowToStartPage}
+            src={logo}
+            alt="Logo icon"
+            style={{ filter: "drop-shadow(0 0 0.2rem #C772ED)" }}
+          />
+        </button>
+        <span className="spanButton absolute top-7 lg:top-10 right-7" onClick={windowToSwipe}>
+          <h1
+            className="relative text-3xl font-thin font-sans w-11 hidden lg:inline lg:mr-2 top-2"
+            style={{ color: "#FFE370", textShadow: "0px 0px 4px #FFE370" }}
+          >
+            Swipe
+          </h1>
+          <img
+            src={fire}
+            alt="Fire icon"
+            className="relative w-7 lg:w-10 inline"
+          />
+        </span>
       </div>
-      <span className="spanButton" onClick={windowToSwipe}>
-        <h1
-          className="text-3xl font-thin font-sans absolute top-5 right-32 w-11 mt-5"
-          style={{ color: "#FFE370", textShadow: "0px 0px 4px #FFE370" }}
-        >
-          Swipe
-        </h1>
-        <img
-          src={fire}
-          alt="Fire icon"
-          className="absolute right-14 top-7 w-10"
-        />
-      </span>
 
+      <div className="text-center flex flex-col">
+        <h1
+          className="text-3xl font-thin font-sans inline-block ml-3"
+          style={{
+            color: "#FF7272",
+            textShadow: "0px 0px 4px #FF3131",
+            dispay: "inline-block",
+          }}
+        >
+          Your Likes
+          <div className="inline ml-1">
+            <img
+              style={{ "margin-top": "-10px" }}
+              src={likebutton}
+              alt="Heart icon"
+              className="w-9 inline"
+            />
+          </div>
+        </h1>
+        <h2
+          className="text-3xl font-thin font-sans"
+          style={{
+            color: "#FF7272",
+            textShadow: "0px 0px 4px #FF3131",
+            dispay: "inline-block",
+          }}
+        >
+          {likedMovies.length}
+        </h2>
+      </div>
       <div className="flex flex-wrap justify-center gap-20 m-20">
         {likedMovies.map((movie) => renderMovie(movie))}
       </div>
-      {sessionId && (<div><h1
-        className="text-3xl font-thin font-sans mt-8"
-        style={{
-          color: "#FF7272",
-          textShadow: "0px 0px 4px #FF3131",
-          display: "inline-block",
-        }}
-      >
-        Session Likes
-      </h1>
-      <h2
-        className="relative top-11 text-3xl font-thin font-sans mt-1 mr-10"
-        style={{
-          color: "#FF7272",
-          textShadow: "0px 0px 4px #FF3131",
-          display: "inline-block",
-        }}
-      >
-        {sessionLikes.length}
-      </h2>
-      <img
-        src={likebutton}
-        alt="Heart icon"
-        className="relative top-10 right-10 w-11 mt-5 ml-7"
-        style={{ display: "inline-block" }}
-      />
-      <div className="flex flex-wrap justify-start gap-20 m-20">
-        {sessionLikes.map((movie) => renderMovie(movie))}
-      </div>
-      </div>
+
+      {sessionId && (
+        <div className="text-center flex flex-col">
+          <h1
+            className="text-3xl font-thin font-sans inline-block ml-3"
+            style={{
+              color: "#FF7272",
+              textShadow: "0px 0px 4px #FF3131",
+              dispay: "inline-block",
+            }}
+          >
+            Session Likes
+            <div className="inline ml-1">
+              <img
+                style={{ "margin-top": "-10px" }}
+                src={likebutton}
+                alt="Heart icon"
+                className="w-9 inline"
+              />
+            </div>
+          </h1>
+          <h2
+            className="text-3xl font-thin font-sans"
+            style={{
+              color: "#FF7272",
+              textShadow: "0px 0px 4px #FF3131",
+              dispay: "inline-block",
+            }}
+          >
+            {sessionLikes.length}
+          </h2>
+
+          <div className="flex flex-wrap justify-start gap-20 m-20">
+            {sessionLikes.map((movie) => renderMovie(movie))}
+          </div>
+        </div>
       )}
     </div>
-    
   );
 }
 
